@@ -1,15 +1,17 @@
 import Badge from '@/components/ui/Badge';
 import { Project, ProjectStatus } from '@/data/types';
 
-type BadgeVariant = 'mvp' | 'concept' | 'research';
+type BadgeVariant = 'mvp' | 'concept' | 'research' | 'live';
 
 const STATUS_BADGE: Record<ProjectStatus, BadgeVariant> = {
+  'Deployed': 'live',
   'MVP Development': 'mvp',
   'Conceptualization & Design': 'concept',
   'Research & Conceptualization': 'research',
 };
 
 const STATUS_LABEL: Record<ProjectStatus, string> = {
+  'Deployed': 'Deployed',
   'MVP Development': 'MVP Development',
   'Conceptualization & Design': 'Concept & Design',
   'Research & Conceptualization': 'Research Phase',

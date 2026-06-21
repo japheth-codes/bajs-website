@@ -1,4 +1,5 @@
 export type ProjectStatus =
+  | 'Deployed'
   | 'MVP Development'
   | 'Conceptualization & Design'
   | 'Research & Conceptualization';

@@ -9,11 +9,11 @@ export const company: CompanyInfo = {
   vision:
     'To be the leading multidisciplinary consultancy in West Africa, recognised for transforming ideas into measurable outcomes through innovation, rigour, and purposeful execution.',
   email: 'info@bajspmconsultancy.com',
-  phones: ['+234 810 000 0001', '+234 810 000 0002', '+234 810 000 0003'],
+  phones: ['+234 703 101 4067', '+234 808 869 4409', '+234 803 587 7730'],
   linkedin: 'https://www.linkedin.com/company/bajs-pm-consultancy',
   addresses: [
-    '14 Admiralty Way, Lekki Phase 1, Lagos, Nigeria',
-    '22 Maitama Close, Asokoro, Abuja, FCT, Nigeria',
+    '8 keffi Street, Garki II, Abuja, Nigeria',
+    '28 Zenith Street, Kuje, Abuja, FCT, Nigeria',
   ],
   founded: '2023',
   workingHours: 'Monday – Friday, 9:00 AM – 6:00 PM WAT',
@@ -21,7 +21,7 @@ export const company: CompanyInfo = {
     {
       name: 'Benjamin Japheth Prince',
       role: 'Chairman / Chief Technical Officer',
-      shares: '34%',
+      shares: '33%',
     },
     {
       name: 'Benjamin Prince Benjamin',
@@ -31,32 +31,32 @@ export const company: CompanyInfo = {
     {
       name: 'Divine Favour Benjamins',
       role: 'Director / Chief Financial Officer',
-      shares: '23%',
+      shares: '24%',
     },
     {
-      name: 'Japheth Adaeze Prince',
-      role: 'Non-Executive Director',
+      name: 'Elizabeth Oyeronke Igbokwe',
+      role: 'Director / Chief Executive Officer',
       shares: '10%',
     },
   ],
   partners: [
     {
-      name: 'TechBridge Nigeria Ltd',
+      name: 'Plexus Entertainment',
       status: 'Active',
       affiliation: 'Partner',
     },
     {
-      name: 'HealthSync Solutions',
+      name: 'BAJs HealthCare',
       status: 'Active',
       affiliation: 'Partner',
     },
     {
-      name: 'BAJs Digital Labs',
-      status: 'Active',
+      name: 'BAJs Nexus',
+      status: 'Inactive',
       affiliation: 'Subsidiary',
     },
     {
-      name: 'EduForward Africa',
+      name: 'Daisy Dolls',
       status: 'Inactive',
       affiliation: 'Partner',
     },
