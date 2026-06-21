@@ -7,15 +7,17 @@ import PageHero from '@/components/ui/PageHero';
 import { projects } from '@/data/projects';
 import { Project } from '@/data/types';
 
-type Filter = 'all' | 'development' | 'research';
+type Filter = 'all' | 'Deployed' | 'development' | 'research';
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'All' },
+  { id: 'Deployed', label: 'Active' },
   { id: 'development', label: 'In Development' },
   { id: 'research', label: 'Research Phase' },
 ];
 
 function filterProjects(filter: Filter, list: Project[]): Project[] {
+  if (filter === 'Deployed') return list.filter((p) => p.status === 'Deployed');
   if (filter === 'development') return list.filter((p) => p.status === 'MVP Development');
   if (filter === 'research')
     return list.filter(

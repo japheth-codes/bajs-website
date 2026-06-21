@@ -12,18 +12,20 @@ import { projects } from '@/data/projects';
 import { teamMembers } from '@/data/team';
 import { ProjectStatus } from '@/data/types';
 
-type BadgeVariant = 'mvp' | 'concept' | 'research';
+type BadgeVariant = 'mvp' | 'concept' | 'research' | 'live';
 
 const STATUS_BADGE: Record<ProjectStatus, BadgeVariant> = {
   'MVP Development': 'mvp',
   'Conceptualization & Design': 'concept',
   'Research & Conceptualization': 'research',
+  'Deployed': 'live',
 };
 
 const STATUS_LABEL: Record<ProjectStatus, string> = {
   'MVP Development': 'MVP Development',
   'Conceptualization & Design': 'Concept & Design',
   'Research & Conceptualization': 'Research Phase',
+  'Deployed': 'Live',
 };
 
 const SERVICE_PREVIEW = [
