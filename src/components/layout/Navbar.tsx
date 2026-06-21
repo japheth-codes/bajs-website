@@ -52,8 +52,8 @@ export default function Navbar() {
   const navBgClass = atTopHome
     ? 'bg-transparent'
     : scrolled
-    ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
-    : 'bg-white/90 backdrop-blur-md border-b border-gray-100';
+    ? 'bg-[#0a0a0a]/95 backdrop-blur-md shadow-lg border-b border-white/5'
+    : 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/5';
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
@@ -61,19 +61,19 @@ export default function Navbar() {
   const getLinkClass = (href: string) => {
     const base = 'text-sm font-medium transition-colors duration-200';
     if (isActive(href)) {
-      return `${base} ${atTopHome ? 'text-white' : 'text-primary'}`;
+      return `${base} text-[#5EC9C3]`;
     }
-    return `${base} ${atTopHome ? 'text-white/80 hover:text-white' : 'text-dark hover:text-primary'}`;
+    return `${base} ${atTopHome ? 'text-white/70 hover:text-white' : 'text-white/60 hover:text-white'}`;
   };
 
   const teamBtnClass = [
     'flex items-center gap-1 text-sm font-medium transition-colors duration-200',
     pathname.startsWith('/team')
-      ? atTopHome ? 'text-white' : 'text-primary'
-      : atTopHome ? 'text-white/80 hover:text-white' : 'text-dark hover:text-primary',
+      ? 'text-[#5EC9C3]'
+      : atTopHome ? 'text-white/70 hover:text-white' : 'text-white/60 hover:text-white',
   ].join(' ');
 
-  const underlineColor = atTopHome ? 'bg-white' : 'bg-primary';
+  const underlineColor = 'bg-[#5EC9C3]';
 
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-300 ${navBgClass}`}>
@@ -133,13 +133,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -6, scale: 0.97 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-[#141414] rounded-lg shadow-2xl border border-white/10 py-1 z-50"
                   >
                     {teamMembers.map((member) => (
                       <Link
                         key={member.slug}
                         href={`/team/${member.slug}`}
-                        className="block px-4 py-2.5 text-sm text-dark hover:bg-primary/10 hover:text-primary transition-colors"
+                        className="block px-4 py-2.5 text-sm text-white/60 hover:bg-white/5 hover:text-[#5EC9C3] transition-colors"
                         onClick={() => setTeamOpen(false)}
                       >
                         {member.name}
@@ -164,7 +164,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className={`md:hidden p-2 rounded-md transition-colors ${atTopHome ? 'text-white hover:text-white/70' : 'text-dark hover:text-primary'}`}
+            className="md:hidden p-2 rounded-md transition-colors text-white/70 hover:text-white"
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
@@ -182,7 +182,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden border-t border-gray-100 bg-white shadow-md overflow-hidden"
+            className="md:hidden border-t border-white/5 bg-[#0a0a0a]/98 shadow-2xl overflow-hidden"
           >
             <div className="px-4 py-3 flex flex-col gap-1">
               {navLinks.slice(0, 2).map((link) => (
@@ -192,8 +192,8 @@ export default function Navbar() {
                   className={[
                     'block py-2 px-3 rounded-md text-sm font-medium transition-colors',
                     isActive(link.href)
-                      ? 'text-primary bg-primary/10'
-                      : 'text-dark hover:text-primary hover:bg-primary/5',
+                      ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
+                      : 'text-white/60 hover:text-white hover:bg-white/5',
                   ].join(' ')}
                   onClick={() => setMobileOpen(false)}
                 >
@@ -206,8 +206,8 @@ export default function Navbar() {
                 className={[
                   'block py-2 px-3 rounded-md text-sm font-medium transition-colors',
                   isActive('/about')
-                    ? 'text-primary bg-primary/10'
-                    : 'text-dark hover:text-primary hover:bg-primary/5',
+                    ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
+                    : 'text-white/60 hover:text-white hover:bg-white/5',
                 ].join(' ')}
                 onClick={() => setMobileOpen(false)}
               >
@@ -220,8 +220,8 @@ export default function Navbar() {
                   className={[
                     'w-full flex items-center justify-between py-2 px-3 rounded-md text-sm font-medium transition-colors',
                     pathname.startsWith('/team')
-                      ? 'text-primary bg-primary/10'
-                      : 'text-dark hover:text-primary hover:bg-primary/5',
+                      ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
+                      : 'text-white/60 hover:text-white hover:bg-white/5',
                   ].join(' ')}
                   onClick={() => setMobileTeamOpen((v) => !v)}
                 >
@@ -242,12 +242,12 @@ export default function Navbar() {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="ml-4 mt-1 flex flex-col gap-1 border-l-2 border-primary/30 pl-3">
+                      <div className="ml-4 mt-1 flex flex-col gap-1 border-l-2 border-[#5EC9C3]/30 pl-3">
                         {teamMembers.map((member) => (
                           <Link
                             key={member.slug}
                             href={`/team/${member.slug}`}
-                            className="block py-1.5 text-sm text-dark hover:text-primary transition-colors"
+                            className="block py-1.5 text-sm text-white/50 hover:text-[#5EC9C3] transition-colors"
                             onClick={() => { setMobileOpen(false); setMobileTeamOpen(false); }}
                           >
                             {member.name}
@@ -264,8 +264,8 @@ export default function Navbar() {
                 className={[
                   'block py-2 px-3 rounded-md text-sm font-medium transition-colors',
                   isActive('/contact')
-                    ? 'text-primary bg-primary/10'
-                    : 'text-dark hover:text-primary hover:bg-primary/5',
+                    ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
+                    : 'text-white/60 hover:text-white hover:bg-white/5',
                 ].join(' ')}
                 onClick={() => setMobileOpen(false)}
               >
