@@ -2,12 +2,12 @@
 
 import { motion } from 'framer-motion';
 
-type ColorVariant = 'aqua' | 'maroon' | 'dark';
+type ColorVariant = 'ink' | 'brand' | 'paper';
 
-const GRADIENTS: Record<ColorVariant, string> = {
-  aqua: 'linear-gradient(135deg, #0d3b37 0%, #1a6a64 45%, #2e9e98 100%)',
-  maroon: 'linear-gradient(135deg, #7A2E2E 0%, #3d1111 100%)',
-  dark: 'linear-gradient(135deg, #1a1a1a 0%, #2F2F2F 100%)',
+const VARIANTS: Record<ColorVariant, string> = {
+  ink: 'bg-ink text-paper',
+  brand: 'bg-brand text-paper',
+  paper: 'bg-paper-alt text-ink border-b border-rule',
 };
 
 interface PageHeroProps {
@@ -22,32 +22,48 @@ export default function PageHero({
   title,
   subtitle,
   breadcrumb,
-  variant = 'dark',
+  variant = 'ink',
   align = 'left',
 }: PageHeroProps) {
+  const isDark = variant !== 'paper';
   const isCenter = align === 'center';
 
   return (
-    <section className="py-20 text-white" style={{ background: GRADIENTS[variant] }}>
-      <div className={`max-w-5xl mx-auto px-6 ${isCenter ? 'text-center' : ''}`}>
+    <section
+      className={[
+        VARIANTS[variant],
+        'py-16 sm:py-20',
+        variant === 'ink' ? 'border-t-2 border-brand' : '',
+      ].join(' ')}
+    >
+      <div className={`mx-auto max-w-6xl px-6 ${isCenter ? 'text-center' : ''}`}>
         {breadcrumb && (
           <motion.p
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="text-white/60 text-xs font-semibold tracking-[0.15em] uppercase mb-3"
+            className={[
+              'mb-5 text-[11px] font-semibold uppercase tracking-widest',
+              isDark ? 'text-brand-light' : 'text-brand',
+            ].join(' ')}
           >
             {breadcrumb}
           </motion.p>
         )}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.5 }}
         >
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">{title}</h1>
+          <h1 className="max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">{title}</h1>
           {subtitle && (
-            <p className={`text-white/70 text-lg ${isCenter ? 'mx-auto' : ''} max-w-2xl`}>
+            <p
+              className={[
+                'mt-5 max-w-2xl text-base leading-relaxed sm:text-lg',
+                isDark ? 'text-paper/65' : 'text-muted',
+                isCenter ? 'mx-auto' : '',
+              ].join(' ')}
+            >
               {subtitle}
             </p>
           )}

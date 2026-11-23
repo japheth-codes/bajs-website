@@ -21,6 +21,10 @@ export interface TeamMember {
   name: string;
   slug: string;
   title: string;
+  /** Title shown on the home page leadership card. Falls back to `title`. */
+  homeTitle?: string;
+  /** Additional office held, shown as a badge on the profile page. */
+  actingTitle?: string;
   role: string;
   shortBio: string;
   longBio: string;
@@ -38,6 +42,8 @@ export interface ServiceCategory {
   id: number;
   title: string;
   icon: string;
+  /** One-line description used in cards. */
+  summary: string;
   description: string;
   services: ServiceItem[];
 }
@@ -56,16 +62,19 @@ export interface BoardMember {
 
 export interface CompanyInfo {
   name: string;
+  shortName: string;
   rc: string;
   tagline: string;
   mission: string;
   vision: string;
   email: string;
+  projectEmail: string;
   phones: string[];
   linkedin: string;
   addresses: string[];
   founded: string;
   workingHours: string;
+  siteUrl: string;
   boards: BoardMember[];
   partners: Partner[];
 }

@@ -4,40 +4,69 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --color-primary: #5EC9C3;
-  --color-secondary: #F2B94B;
-  --color-accent: #10C45C;
-  --color-dark: #2F2F2F;
-  --color-maroon: #7A2E2E;
-  --font-sans: 'Inter', sans-serif;
+  --foreground: #222222;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: 'kern' 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #7a2e2e;
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #7a2e2e;
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.02em;
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[11px] font-bold uppercase tracking-widest text-brand;
+  }
+
+  .label-rule {
+    @apply flex items-center gap-3 text-[11px] font-semibold uppercase tracking-widest text-muted;
+  }
+
+  .label-rule::before {
+    content: '';
+    @apply block h-px w-8 bg-brand;
+  }
+
+  .prose-firm p {
+    @apply text-muted leading-relaxed;
+  }
+
+  .prose-firm p + p {
+    @apply mt-4;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
 
-@keyframes meshFloat {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-24px) scale(1.06); }
-}
-
-@keyframes meshFloat2 {
-  0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
-  50% { transform: translateY(-16px) scale(1.04) rotate(8deg); }
+  .hairline {
+    border-color: #dcdad5;
+  }
 }

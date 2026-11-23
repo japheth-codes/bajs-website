@@ -2,12 +2,13 @@ import type { Metadata } from 'next';
 import HomeContent from '@/components/home/HomeContent';
 
 export const metadata: Metadata = {
-  title: 'BAJs Project Management & Consultancy | Home',
+  title: 'Project Management & Consultancy',
   description:
-    'BAJs PM & C — delivering innovative, purpose-driven solutions across technology, operations, and strategy in West Africa.',
+    'BAJs PM & C delivers purpose-driven solutions across technology, business operations and strategy, in Nigeria, across Africa and globally.',
   openGraph: {
     title: 'BAJs Project Management & Consultancy',
-    description: 'Redefining Operational Efficiency Across Sectors',
+    description:
+      'Practical counsel and disciplined delivery across project management, business development, technology, data and finance.',
     type: 'website',
   },
 };

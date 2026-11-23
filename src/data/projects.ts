@@ -11,7 +11,7 @@ export const projects: Project[] = [
     shortDescription:
       'A digital commerce platform bridging informal market petty traders to customers, enabling ordering of daily essentials with neighbourhood delivery agents.',
     longDescription:
-      'Shop Easy addresses the disconnect between Nigeria\'s vast informal retail sector and modern digital commerce. By onboarding petty traders into a structured digital marketplace, the platform allows everyday consumers to order daily essentials — groceries, household items, and provisions — from familiar local vendors, with last-mile delivery handled by vetted neighbourhood agents. The solution reduces friction for traders who lack formal e-commerce infrastructure while giving customers speed, affordability, and trust.',
+      'Shop Easy addresses the disconnect between Nigeria\'s vast informal retail sector and modern digital commerce. By onboarding petty traders into a structured digital marketplace, the platform allows everyday consumers to order daily essentials, groceries, household items, and provisions, from familiar local vendors, with last-mile delivery handled by vetted neighbourhood agents. The solution reduces friction for traders who lack formal e-commerce infrastructure while giving customers speed, affordability, and trust.',
     highlights: [
       'Hyperlocal marketplace connecting informal traders with community buyers',
       'Neighbourhood delivery agent network for same-day fulfilment',
@@ -23,7 +23,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    name: 'HMS — Hospital Management System',
+    name: 'HMS (Hospital Management System)',
     slug: 'hms',
     status: 'MVP Development',
     statusColor: 'emerald',
@@ -43,7 +43,7 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    name: 'ARS — Automated Receptionist System',
+    name: 'ARS (Automated Receptionist System)',
     slug: 'ars',
     status: 'Conceptualization & Design',
     statusColor: 'blue',
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     shortDescription:
       'A workflow automation solution for customer interaction, registration, service guidance, and activity logging, derived from HMS.',
     longDescription:
-      'The Automated Receptionist System (ARS) is a standalone product derived from the reception and front-desk workflow modules developed within HMS. It provides organisations with an intelligent, configurable front-desk automation layer that handles visitor check-in, customer registration, service routing, and activity logging without requiring full-time receptionist coverage. ARS is designed to be adaptable across sectors — clinics, corporate offices, government agencies, and event venues — making routine administrative interactions efficient and auditable.',
+      'The Automated Receptionist System (ARS) is a standalone product derived from the reception and front-desk workflow modules developed within HMS. It provides organisations with an intelligent, configurable front-desk automation layer that handles visitor check-in, customer registration, service routing, and activity logging without requiring full-time receptionist coverage. ARS is designed to be adaptable across sectors, clinics, corporate offices, government agencies, and event venues, making routine administrative interactions efficient and auditable.',
     highlights: [
       'Self-service customer check-in and registration kiosk interface',
       'Intelligent service routing based on customer query and department availability',
@@ -83,7 +83,7 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    name: 'LMS — Learning Management System',
+    name: 'LMS (Learning Management System)',
     slug: 'lms',
     status: 'Conceptualization & Design',
     statusColor: 'blue',
@@ -91,7 +91,7 @@ export const projects: Project[] = [
     shortDescription:
       'An AI-supported hybrid learning platform for secondary education combining digital modules with physical practical sessions.',
     longDescription:
-      'The Learning Management System (LMS) is an AI-enhanced hybrid education platform purpose-built for the Nigerian secondary school context. Recognising that pure digital learning fails to address practical skill development, the platform blends structured digital course modules — including video lessons, assessments, and AI-powered tutoring — with scheduled in-person or supervised practical sessions. The system supports teachers in monitoring student progress, adapting content delivery, and identifying at-risk learners through analytics dashboards.',
+      'The Learning Management System (LMS) is an AI-enhanced hybrid education platform purpose-built for the Nigerian secondary school context. Recognising that pure digital learning fails to address practical skill development, the platform blends structured digital course modules, including video lessons, assessments, and AI-powered tutoring, with scheduled in-person or supervised practical sessions. The system supports teachers in monitoring student progress, adapting content delivery, and identifying at-risk learners through analytics dashboards.',
     highlights: [
       'AI-powered tutoring assistant for personalised student support',
       'Hybrid curriculum design blending digital modules with physical practicals',

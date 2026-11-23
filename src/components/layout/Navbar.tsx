@@ -2,21 +2,17 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const teamMembers = [
-  { name: 'Chief Technology Officer', slug: 'benjamin-japheth' },
-  { name: 'Chief Operating Officer', slug: 'benjamin-prince' },
-  { name: 'Chief Financial Officer', slug: 'divine-favour' },
-];
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { teamMembers } from '@/data/team';
+import { company, telHref } from '@/data/company';
+import { Wordmark } from '@/components/layout/Wordmark';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Projects', href: '/projects' },
   { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -25,12 +21,11 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [teamOpen, setTeamOpen] = useState(false);
   const [mobileTeamOpen, setMobileTeamOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setTeamOpen(false);
       }
     }
@@ -39,221 +34,193 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 80);
-    handler();
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
-
-  // On home page at top: transparent bg + white text; everywhere else: white bg + dark text
-  const isHome = pathname === '/';
-  const atTopHome = isHome && !scrolled;
-
-  const navBgClass = atTopHome
-    ? 'bg-transparent'
-    : scrolled
-    ? 'bg-[#0a0a0a]/95 backdrop-blur-md shadow-lg border-b border-white/5'
-    : 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/5';
+    setMobileOpen(false);
+    setTeamOpen(false);
+    setMobileTeamOpen(false);
+  }, [pathname]);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
-  const getLinkClass = (href: string) => {
-    const base = 'text-sm font-medium transition-colors duration-200';
-    if (isActive(href)) {
-      return `${base} text-[#5EC9C3]`;
-    }
-    return `${base} ${atTopHome ? 'text-white/70 hover:text-white' : 'text-white/60 hover:text-white'}`;
-  };
-
-  const teamBtnClass = [
-    'flex items-center gap-1 text-sm font-medium transition-colors duration-200',
-    pathname.startsWith('/team')
-      ? 'text-[#5EC9C3]'
-      : atTopHome ? 'text-white/70 hover:text-white' : 'text-white/60 hover:text-white',
-  ].join(' ');
-
-  const underlineColor = 'bg-[#5EC9C3]';
+  const linkClass = (href: string) =>
+    [
+      'relative py-2 text-sm font-semibold transition-colors duration-200',
+      isActive(href) ? 'text-brand' : 'text-ink hover:text-brand',
+    ].join(' ');
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${navBgClass}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
-            <Image src="/logo.svg" alt="BAJs PM & C" width={120} height={40} priority />
-          </Link>
-
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.slice(0, 2).map((link) => (
-              <Link key={link.href} href={link.href} className={`relative group ${getLinkClass(link.href)}`}>
-                {link.label}
-                <span
-                  className={[
-                    'absolute left-0 -bottom-0.5 h-[2px] rounded-full transition-all duration-200',
-                    underlineColor,
-                    isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full',
-                  ].join(' ')}
-                />
-              </Link>
-            ))}
-
-            <Link href="/about" className={`relative group ${getLinkClass('/about')}`}>
-              About
-              <span
-                className={[
-                  'absolute left-0 -bottom-0.5 h-[2px] rounded-full transition-all duration-200',
-                  underlineColor,
-                  isActive('/about') ? 'w-full' : 'w-0 group-hover:w-full',
-                ].join(' ')}
-              />
-            </Link>
-
-            {/* Team dropdown */}
-            <div
-              className="relative"
-              ref={dropdownRef}
-              onMouseEnter={() => setTeamOpen(true)}
-              onMouseLeave={() => setTeamOpen(false)}
+    <>
+      <div className="bg-brand text-white">
+        <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-4 px-6 text-[11px]">
+          <p className="flex min-w-0 items-center gap-2 truncate font-medium text-white/75">
+            <span className="h-1.5 w-1.5 shrink-0 bg-teal" aria-hidden="true" />
+            <span className="truncate">{company.name}</span>
+          </p>
+          <div className="flex shrink-0 items-center gap-5 text-white/75">
+            <span className="hidden sm:inline">RC {company.rc}</span>
+            <a
+              href={`tel:${telHref(company.phones[0])}`}
+              className="font-medium transition-colors hover:text-white"
             >
-              <button className={teamBtnClass} aria-expanded={teamOpen}>
-                Team
-                <ChevronDown
-                  size={15}
-                  className={`transition-transform duration-200 ${teamOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              <AnimatePresence>
-                {teamOpen && (
-                  <motion.div
-                    key="team-dropdown"
-                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -6, scale: 0.97 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-[#141414] rounded-lg shadow-2xl border border-white/10 py-1 z-50"
-                  >
-                    {teamMembers.map((member) => (
-                      <Link
-                        key={member.slug}
-                        href={`/team/${member.slug}`}
-                        className="block px-4 py-2.5 text-sm text-white/60 hover:bg-white/5 hover:text-[#5EC9C3] transition-colors"
-                        onClick={() => setTeamOpen(false)}
-                      >
-                        {member.name}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <Link href="/contact" className={`relative group ${getLinkClass('/contact')}`}>
-              Contact
-              <span
-                className={[
-                  'absolute left-0 -bottom-0.5 h-[2px] rounded-full transition-all duration-200',
-                  underlineColor,
-                  isActive('/contact') ? 'w-full' : 'w-0 group-hover:w-full',
-                ].join(' ')}
-              />
-            </Link>
+              {company.phones[0]}
+            </a>
           </div>
-
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden p-2 rounded-md transition-colors text-white/70 hover:text-white"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
         </div>
       </div>
 
-      {/* Mobile menu — animated slide-down */}
+      <header className="sticky top-0 z-50 border-b border-rule bg-paper">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <Wordmark />
+
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+          <Link href="/" className={linkClass('/')}>
+            Home
+            {isActive('/') && <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />}
+          </Link>
+          <Link href="/about" className={linkClass('/about')}>
+            About
+            {isActive('/about') && <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />}
+          </Link>
+          <Link href="/projects" className={linkClass('/projects')}>
+            Projects
+            {isActive('/projects') && (
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />
+            )}
+          </Link>
+
+          <div
+            className="relative"
+            ref={dropdownRef}
+            onMouseEnter={() => setTeamOpen(true)}
+            onMouseLeave={() => setTeamOpen(false)}
+          >
+            <button
+              type="button"
+              className={[
+                'flex items-center gap-1 py-2 text-sm font-semibold transition-colors duration-200',
+                pathname.startsWith('/team') ? 'text-brand' : 'text-ink hover:text-brand',
+              ].join(' ')}
+              aria-expanded={teamOpen}
+              aria-haspopup="true"
+            >
+              Team
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-200 ${teamOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {teamOpen && (
+                <motion.div
+                  key="team-dropdown"
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 border border-rule bg-paper py-2 shadow-md"
+                >
+                  {teamMembers.map((member) => (
+                    <Link
+                      key={member.slug}
+                      href={`/team/${member.slug}`}
+                      className="block px-5 py-3 transition-colors hover:bg-paper-alt"
+                      onClick={() => setTeamOpen(false)}
+                    >
+                      <span className="block text-[13px] font-semibold text-ink">
+                        {member.name}
+                      </span>
+                      <span className="mt-0.5 block text-[11px] uppercase tracking-wider text-muted">
+                        {member.title}
+                      </span>
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <Link href="/contact" className={linkClass('/contact')}>
+            Contact
+            {isActive('/contact') && (
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />
+            )}
+          </Link>
+
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-2 bg-brand px-4 py-2.5 text-[13px] font-bold text-white transition-colors duration-200 hover:bg-brand-dark"
+          >
+            Talk to an advisor
+            <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </nav>
+
+        <button
+          type="button"
+          className="p-2 text-ink md:hidden"
+          onClick={() => setMobileOpen((value) => !value)}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <motion.nav
             key="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden border-t border-white/5 bg-[#0a0a0a]/98 shadow-2xl overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden border-t border-rule bg-paper md:hidden"
+            aria-label="Mobile"
           >
-            <div className="px-4 py-3 flex flex-col gap-1">
-              {navLinks.slice(0, 2).map((link) => (
+            <div className="mx-auto flex max-w-6xl flex-col px-6 py-4">
+              {navLinks.slice(0, 3).map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={[
-                    'block py-2 px-3 rounded-md text-sm font-medium transition-colors',
-                    isActive(link.href)
-                      ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
-                      : 'text-white/60 hover:text-white hover:bg-white/5',
-                  ].join(' ')}
+                  className="border-b border-rule/60 py-3 text-sm font-semibold text-ink"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
 
-              <Link
-                href="/about"
-                className={[
-                  'block py-2 px-3 rounded-md text-sm font-medium transition-colors',
-                  isActive('/about')
-                    ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
-                    : 'text-white/60 hover:text-white hover:bg-white/5',
-                ].join(' ')}
-                onClick={() => setMobileOpen(false)}
-              >
-                About
-              </Link>
-
-              {/* Mobile team accordion */}
-              <div>
+              <div className="border-b border-rule/60">
                 <button
-                  className={[
-                    'w-full flex items-center justify-between py-2 px-3 rounded-md text-sm font-medium transition-colors',
-                    pathname.startsWith('/team')
-                      ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
-                      : 'text-white/60 hover:text-white hover:bg-white/5',
-                  ].join(' ')}
-                  onClick={() => setMobileTeamOpen((v) => !v)}
+                  type="button"
+                  className="flex w-full items-center justify-between py-3 text-sm font-semibold text-ink"
+                  onClick={() => setMobileTeamOpen((value) => !value)}
+                  aria-expanded={mobileTeamOpen}
                 >
                   Team
                   <ChevronDown
                     size={15}
-                    className={`transition-transform duration-200 ${mobileTeamOpen ? 'rotate-180' : ''}`}
+                    className={`transition-transform ${mobileTeamOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
-
                 <AnimatePresence>
                   {mobileTeamOpen && (
                     <motion.div
-                      key="mobile-team"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden pb-2 pl-4"
                     >
-                      <div className="ml-4 mt-1 flex flex-col gap-1 border-l-2 border-[#5EC9C3]/30 pl-3">
-                        {teamMembers.map((member) => (
-                          <Link
-                            key={member.slug}
-                            href={`/team/${member.slug}`}
-                            className="block py-1.5 text-sm text-white/50 hover:text-[#5EC9C3] transition-colors"
-                            onClick={() => { setMobileOpen(false); setMobileTeamOpen(false); }}
-                          >
-                            {member.name}
-                          </Link>
-                        ))}
-                      </div>
+                      {teamMembers.map((member) => (
+                        <Link
+                          key={member.slug}
+                          href={`/team/${member.slug}`}
+                          className="block py-2 text-sm text-muted"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {member.name}
+                        </Link>
+                      ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -261,20 +228,25 @@ export default function Navbar() {
 
               <Link
                 href="/contact"
-                className={[
-                  'block py-2 px-3 rounded-md text-sm font-medium transition-colors',
-                  isActive('/contact')
-                    ? 'text-[#5EC9C3] bg-[#5EC9C3]/10'
-                    : 'text-white/60 hover:text-white hover:bg-white/5',
-                ].join(' ')}
+                className="border-b border-rule/60 py-3 text-sm font-semibold text-ink"
                 onClick={() => setMobileOpen(false)}
               >
                 Contact
               </Link>
+
+              <Link
+                href="/contact"
+                className="mt-4 inline-flex items-center justify-center gap-2 bg-brand px-4 py-3 text-[13px] font-bold text-white"
+                onClick={() => setMobileOpen(false)}
+              >
+                Talk to an advisor
+                <ArrowRight size={14} />
+              </Link>
             </div>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
-    </nav>
+      </header>
+    </>
   );
 }
