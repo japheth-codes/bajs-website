@@ -6,8 +6,8 @@ import { ChevronDown } from 'lucide-react';
 import { Project, ProjectStatus } from '@/data/types';
 
 const STATUS_CONFIG: Record<ProjectStatus, { label: string; dot: string }> = {
-  'MVP Development': { label: 'MVP development', dot: 'bg-burgundy' },
-  'Conceptualization & Design': { label: 'Concept and design', dot: 'bg-gold' },
+  'MVP Development': { label: 'MVP development', dot: 'bg-brand' },
+  'Conceptualization & Design': { label: 'Concept and design', dot: 'bg-brand' },
   'Research & Conceptualization': { label: 'Research phase', dot: 'bg-subtle' },
   Deployed: { label: 'Live', dot: 'bg-ink' },
 };
@@ -24,7 +24,7 @@ export default function ProjectCardFull({ project, index }: ProjectCardFullProps
   return (
     <motion.article layout className="flex h-full flex-col border border-rule bg-white">
       <div className="flex items-start justify-between gap-4 border-b border-rule px-6 py-5">
-        <span className="font-serif text-sm text-subtle">
+        <span className="font-bold tracking-tight text-sm text-subtle">
           {String(index + 1).padStart(2, '0')}
         </span>
         <span className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-muted">
@@ -34,7 +34,7 @@ export default function ProjectCardFull({ project, index }: ProjectCardFullProps
       </div>
 
       <div className="p-6">
-        <h3 className="font-serif text-xl leading-snug text-ink">{project.name}</h3>
+        <h3 className="font-bold tracking-tight text-xl leading-snug text-ink">{project.name}</h3>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
           {project.domain.map((domain) => (
@@ -54,7 +54,7 @@ export default function ProjectCardFull({ project, index }: ProjectCardFullProps
         <button
           type="button"
           onClick={() => setExpanded((value) => !value)}
-          className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-burgundy transition-colors hover:text-burgundy-dark"
+          className="flex items-center gap-2 text-sm font-semibold text-brand transition-colors hover:text-brand-dark"
           aria-expanded={expanded}
         >
           {expanded ? 'Hide details' : 'See highlights'}
@@ -81,7 +81,7 @@ export default function ProjectCardFull({ project, index }: ProjectCardFullProps
                   key={highlight}
                   className="flex items-start gap-2.5 text-[13px] leading-relaxed text-muted"
                 >
-                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gold" />
+                  <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand" />
                   {highlight}
                 </li>
               ))}

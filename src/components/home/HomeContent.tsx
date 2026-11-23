@@ -74,7 +74,7 @@ export default function HomeContent() {
             >
               <p className="eyebrow">BAJs Project Management &amp; Consultancy</p>
 
-              <h1 className="mt-6 font-serif text-[2.6rem] leading-[1.08] tracking-tight text-ink sm:text-6xl">
+              <h1 className="mt-6 text-[2.5rem] font-bold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-[4.25rem]">
                 Practical counsel.
                 <br />
                 Disciplined delivery.
@@ -87,7 +87,7 @@ export default function HomeContent() {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center justify-center gap-2 bg-burgundy px-7 py-4 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors hover:bg-burgundy-dark"
+                  className="group inline-flex items-center justify-center gap-2 bg-brand px-7 py-4 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
                 >
                   Discuss a project
                   <ArrowRight
@@ -97,13 +97,13 @@ export default function HomeContent() {
                 </Link>
                 <Link
                   href="/projects"
-                  className="inline-flex items-center justify-center gap-2 border border-ink/25 px-7 py-4 text-[12px] font-semibold uppercase tracking-wider text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+                  className="inline-flex items-center justify-center gap-2 border border-ink px-7 py-4 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-white"
                 >
                   View our work
                 </Link>
               </div>
 
-              <p className="mt-10 max-w-md border-l-2 border-gold pl-4 text-sm leading-relaxed text-muted">
+              <p className="mt-10 max-w-md border-l-2 border-brand pl-4 text-sm leading-relaxed text-muted">
                 We help organisations plan, structure and deliver projects across technology,
                 business operations and strategy, in Nigeria, across Africa and globally.
               </p>
@@ -113,17 +113,18 @@ export default function HomeContent() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="border border-rule bg-white lg:col-span-5"
+              className="border border-rule bg-white shadow-sm lg:col-span-5"
             >
-              <div className="h-[3px] w-full bg-burgundy" />
-              <div className="p-7">
-                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted">
+              <div className="border-b border-rule bg-paper-alt px-7 py-3.5">
+                <p className="text-[11px] font-bold uppercase tracking-widest text-ink">
                   Firm profile
                 </p>
-                <dl className="mt-5 divide-y divide-rule/70 border-t border-rule/70">
+              </div>
+              <div className="p-7">
+                <dl className="divide-y divide-rule/70 border-t border-rule/70">
                   {facts.map((fact) => (
                     <div key={fact.label} className="flex items-baseline justify-between gap-4 py-3.5">
-                      <dt className="text-[11px] font-semibold uppercase tracking-wider text-subtle">
+                      <dt className="text-sm font-semibold text-subtle">
                         {fact.label}
                       </dt>
                       <dd className="text-right text-sm font-medium text-ink">{fact.value}</dd>
@@ -141,7 +142,7 @@ export default function HomeContent() {
       </section>
 
       {/* Stats strip */}
-      <section className="border-b border-rule bg-white">
+      <section className="border-b border-rule bg-paper-alt">
         <div className="mx-auto max-w-6xl px-6">
           <dl className="grid grid-cols-2 divide-x divide-rule lg:grid-cols-4">
             {stats.map((stat, index) => (
@@ -153,10 +154,10 @@ export default function HomeContent() {
                   index % 2 === 1 ? 'border-l border-rule lg:border-l-0' : '',
                 ].join(' ')}
               >
-                <dd className="font-serif text-3xl text-ink sm:text-4xl">
+                <dd className="font-bold text-4xl tracking-tight text-ink sm:text-5xl">
                   {typeof stat.value === 'number' ? <CountUp target={stat.value} /> : stat.value}
                 </dd>
-                <dt className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-muted">
+                <dt className="mt-2 text-sm font-semibold text-muted">
                   {stat.label}
                 </dt>
               </div>
@@ -177,7 +178,7 @@ export default function HomeContent() {
           >
             <div className="md:col-span-7">
               <p className="eyebrow">What we do</p>
-              <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+              <h2 className="mt-4 font-bold text-3xl leading-[1.1] tracking-tight text-ink sm:text-5xl">
                 Five pillars of excellence
               </h2>
             </div>
@@ -201,23 +202,23 @@ export default function HomeContent() {
                   key={service.id}
                   variants={fadeUp}
                   className={[
-                    'group bg-white p-6',
+                    'group bg-white p-6 transition-colors hover:bg-paper-alt',
                     index >= 3 ? 'lg:col-span-3' : 'lg:col-span-2',
                   ].join(' ')}
                 >
                   <div className="flex items-start justify-between">
-                    <span className="font-serif text-sm text-subtle">
+                    <span className="font-bold tracking-tight text-sm text-subtle">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <Icon size={18} strokeWidth={1.5} className="text-burgundy" />
+                    <Icon size={18} strokeWidth={1.5} className="text-brand" />
                   </div>
-                  <h3 className="mt-6 font-serif text-lg leading-snug text-ink">
+                  <h3 className="mt-6 font-bold tracking-tight text-lg leading-snug text-ink">
                     {service.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted">{service.summary}</p>
                   <Link
                     href="/about#services"
-                    className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-burgundy transition-colors hover:text-burgundy-dark"
+                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors hover:text-brand-dark"
                   >
                     Learn more
                     <ArrowRight size={12} />
@@ -230,7 +231,7 @@ export default function HomeContent() {
       </section>
 
       {/* Selected work */}
-      <section className="border-b border-rule bg-white py-16 sm:py-20">
+      <section className="border-b border-rule bg-paper-alt py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <motion.div
             variants={fadeUp}
@@ -241,13 +242,13 @@ export default function HomeContent() {
           >
             <div>
               <p className="eyebrow">Our portfolio</p>
-              <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+              <h2 className="mt-4 font-bold text-3xl leading-[1.1] tracking-tight text-ink sm:text-5xl">
                 Selected work
               </h2>
             </div>
             <Link
               href="/projects"
-              className="group inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors hover:text-burgundy"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-brand"
             >
               Explore the full catalogue
               <ArrowUpRight
@@ -270,7 +271,7 @@ export default function HomeContent() {
       </section>
 
       {/* Leadership */}
-      <section id="leadership" className="border-b border-rule bg-paper-alt py-16 sm:py-20">
+      <section id="leadership" className="border-b border-rule bg-paper py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <motion.div
             variants={fadeUp}
@@ -280,7 +281,7 @@ export default function HomeContent() {
             className="mb-9"
           >
             <p className="eyebrow">The team</p>
-            <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+            <h2 className="mt-4 font-bold text-3xl leading-[1.1] tracking-tight text-ink sm:text-5xl">
               Leadership
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
@@ -302,19 +303,19 @@ export default function HomeContent() {
                   href={`/team/${member.slug}`}
                   className="group flex h-full flex-col border border-rule bg-paper p-6 transition-colors hover:border-ink/30"
                 >
-                  <div className="flex h-14 w-14 items-center justify-center border border-rule bg-white font-serif text-lg text-burgundy">
+                  <div className="flex h-14 w-14 items-center justify-center border border-rule bg-white font-bold tracking-tight text-lg text-brand">
                     {initials(member.name)}
                   </div>
-                  <h3 className="mt-5 font-serif text-xl leading-snug text-ink">
+                  <h3 className="mt-5 font-bold tracking-tight text-xl leading-snug text-ink">
                     {member.name}
                   </h3>
-                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-burgundy">
+                  <p className="mt-1 text-sm font-semibold text-brand">
                     {member.homeTitle ?? member.title}
                   </p>
                   <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
                     {member.shortBio}
                   </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors group-hover:text-burgundy">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-brand">
                     View profile
                     <ArrowRight
                       size={12}
@@ -329,7 +330,7 @@ export default function HomeContent() {
       </section>
 
       {/* Contact band */}
-      <section className="bg-ink py-16 text-paper sm:py-20">
+      <section className="bg-brand py-16 text-white sm:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <motion.div
             variants={fadeUp}
@@ -339,13 +340,13 @@ export default function HomeContent() {
             className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end"
           >
             <div className="lg:col-span-8">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-white/70">
                 Work with us
               </p>
-              <h2 className="mt-4 max-w-2xl font-serif text-3xl leading-[1.15] sm:text-4xl">
+              <h2 className="mt-4 max-w-2xl text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl">
                 Let&apos;s discuss your next project.
               </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/60">
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75">
                 We&apos;re based in Abuja and work across West Africa, the wider African continent
                 and globally.
               </p>
@@ -353,7 +354,7 @@ export default function HomeContent() {
             <div className="lg:col-span-4 lg:text-right">
               <Link
                 href="/contact"
-                className="group inline-flex items-center gap-2 border border-paper/30 px-7 py-4 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors hover:border-gold hover:text-gold-light"
+                className="group inline-flex items-center gap-2 bg-white px-7 py-4 text-sm font-semibold text-brand transition-colors hover:bg-ink hover:text-white"
               >
                 Get in touch
                 <ArrowRight

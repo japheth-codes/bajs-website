@@ -8,8 +8,8 @@ import { projects } from '@/data/projects';
 import { Project, ProjectStatus } from '@/data/types';
 
 const STATUS_CONFIG: Record<ProjectStatus, { label: string; dot: string }> = {
-  'MVP Development': { label: 'MVP development', dot: 'bg-burgundy' },
-  'Conceptualization & Design': { label: 'Concept and design', dot: 'bg-gold' },
+  'MVP Development': { label: 'MVP development', dot: 'bg-brand' },
+  'Conceptualization & Design': { label: 'Concept and design', dot: 'bg-brand' },
   'Research & Conceptualization': { label: 'Research phase', dot: 'bg-subtle' },
   Deployed: { label: 'Live', dot: 'bg-ink' },
 };
@@ -34,7 +34,7 @@ export default function ProjectShowcase() {
               className={[
                 'block w-full border-b border-rule/70 px-6 py-5 text-left transition-colors last:border-b-0',
                 isActive
-                  ? 'border-l-2 border-l-burgundy bg-white'
+                  ? 'border-l-2 border-l-brand bg-white'
                   : 'border-l-2 border-l-transparent hover:bg-white/60',
               ].join(' ')}
             >
@@ -53,7 +53,7 @@ export default function ProjectShowcase() {
                     {status.label}
                   </span>
                 </div>
-                <span className="font-serif text-xs text-subtle">
+                <span className="font-bold tracking-tight text-xs text-subtle">
                   {String(index + 1).padStart(2, '0')}
                 </span>
               </div>
@@ -85,7 +85,7 @@ export default function ProjectShowcase() {
                 </span>
               </div>
 
-              <h2 className="mt-5 font-serif text-2xl leading-tight text-ink sm:text-3xl">
+              <h2 className="mt-5 font-bold tracking-tight text-2xl leading-tight text-ink sm:text-3xl">
                 {activeProject.name}
               </h2>
 
@@ -115,7 +115,7 @@ export default function ProjectShowcase() {
                     key={highlight}
                     className="flex items-start gap-3 border-t border-rule/60 pt-3 text-sm leading-relaxed text-muted"
                   >
-                    <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-burgundy" />
+                    <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-brand" />
                     {highlight}
                   </li>
                 ))}
@@ -128,7 +128,7 @@ export default function ProjectShowcase() {
               </p>
               <Link
                 href="/projects"
-                className="group inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors hover:text-burgundy"
+                className="group inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors hover:text-brand"
               >
                 View all projects
                 <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />

@@ -64,7 +64,7 @@ export default function ContactContent() {
   }
 
   const inputClass =
-    'w-full rounded-sm border border-rule bg-white px-4 py-3 text-sm text-ink placeholder:text-subtle focus:border-burgundy focus:outline-none focus:ring-0 transition-colors';
+    'w-full rounded-sm border border-rule bg-white px-4 py-3 text-sm text-ink placeholder:text-subtle focus:border-brand focus:outline-none focus:ring-0 transition-colors';
   const labelClass = 'mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-muted';
 
   return (
@@ -87,8 +87,8 @@ export default function ContactContent() {
               viewport={{ once: true, margin: '-60px' }}
               className="lg:col-span-5"
             >
-              <div className="border-t-2 border-burgundy pt-6">
-                <h2 className="font-serif text-2xl text-ink">{company.name}</h2>
+              <div className="border-t-2 border-brand pt-6">
+                <h2 className="font-bold tracking-tight text-2xl text-ink">{company.name}</h2>
                 <p className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-muted">
                   RC {company.rc}
                 </p>
@@ -101,7 +101,7 @@ export default function ContactContent() {
                 <div className="mt-4 flex flex-col gap-3">
                   {company.addresses.map((address) => (
                     <div key={address} className="flex items-start gap-3">
-                      <MapPin size={15} className="mt-1 shrink-0 text-burgundy" strokeWidth={1.5} />
+                      <MapPin size={15} className="mt-1 shrink-0 text-brand" strokeWidth={1.5} />
                       <span className="text-sm leading-relaxed text-muted">{address}</span>
                     </div>
                   ))}
@@ -121,9 +121,9 @@ export default function ContactContent() {
                     <a
                       key={phone}
                       href={`tel:${telHref(phone)}`}
-                      className="flex items-center gap-3 text-sm text-muted transition-colors hover:text-burgundy"
+                      className="flex items-center gap-3 text-sm text-muted transition-colors hover:text-brand"
                     >
-                      <Phone size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
+                      <Phone size={15} className="shrink-0 text-brand" strokeWidth={1.5} />
                       {phone}
                     </a>
                   ))}
@@ -136,9 +136,9 @@ export default function ContactContent() {
                 </h3>
                 <a
                   href={`mailto:${company.email}`}
-                  className="mt-4 flex items-center gap-3 break-all text-sm text-muted transition-colors hover:text-burgundy"
+                  className="mt-4 flex items-center gap-3 break-all text-sm text-muted transition-colors hover:text-brand"
                 >
-                  <Mail size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
+                  <Mail size={15} className="shrink-0 text-brand" strokeWidth={1.5} />
                   {company.email}
                 </a>
               </div>
@@ -151,9 +151,9 @@ export default function ContactContent() {
                   href={company.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 flex items-center gap-3 text-sm text-muted transition-colors hover:text-burgundy"
+                  className="mt-4 flex items-center gap-3 text-sm text-muted transition-colors hover:text-brand"
                 >
-                  <ExternalLink size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
+                  <ExternalLink size={15} className="shrink-0 text-brand" strokeWidth={1.5} />
                   BAJs PM &amp; Consultancy on LinkedIn
                 </a>
               </div>
@@ -163,7 +163,7 @@ export default function ContactContent() {
                   Working hours
                 </h3>
                 <div className="mt-4 flex items-center gap-3 text-sm text-muted">
-                  <Clock size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
+                  <Clock size={15} className="shrink-0 text-brand" strokeWidth={1.5} />
                   {company.workingHours}
                 </div>
               </div>
@@ -177,9 +177,9 @@ export default function ContactContent() {
               viewport={{ once: true, margin: '-60px' }}
               className="lg:col-span-7"
             >
-              <div className="border border-rule bg-white">
+              <div className="border border-rule border-t-2 border-t-brand bg-white">
                 <div className="border-b border-rule px-7 py-6">
-                  <h2 className="font-serif text-2xl text-ink">Send us a message</h2>
+                  <h2 className="font-bold tracking-tight text-2xl text-ink">Send us a message</h2>
                   <p className="mt-2 text-sm text-muted">
                     Fields marked with an asterisk are required.
                   </p>
@@ -189,7 +189,7 @@ export default function ContactContent() {
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
                       <label htmlFor="name" className={labelClass}>
-                        Full name <span className="text-burgundy">*</span>
+                        Full name <span className="text-brand">*</span>
                       </label>
                       <input
                         id="name"
@@ -205,7 +205,7 @@ export default function ContactContent() {
 
                     <div>
                       <label htmlFor="email" className={labelClass}>
-                        Email <span className="text-burgundy">*</span>
+                        Email <span className="text-brand">*</span>
                       </label>
                       <input
                         id="email"
@@ -222,7 +222,7 @@ export default function ContactContent() {
 
                   <div>
                     <label htmlFor="subject" className={labelClass}>
-                      Subject <span className="text-burgundy">*</span>
+                      Subject <span className="text-brand">*</span>
                     </label>
                     <select
                       id="subject"
@@ -242,7 +242,7 @@ export default function ContactContent() {
 
                   <div>
                     <label htmlFor="message" className={labelClass}>
-                      Message <span className="text-burgundy">*</span>
+                      Message <span className="text-brand">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -283,7 +283,7 @@ export default function ContactContent() {
                   {status === 'error' && (
                     <div
                       role="alert"
-                      className="flex items-start gap-3 border border-burgundy/30 bg-burgundy/5 px-4 py-3 text-sm text-burgundy"
+                      className="flex items-start gap-3 border border-brand/30 bg-brand/5 px-4 py-3 text-sm text-brand"
                     >
                       <AlertCircle size={17} className="mt-0.5 shrink-0" />
                       <span>
@@ -299,7 +299,7 @@ export default function ContactContent() {
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="mt-1 inline-flex items-center justify-center gap-2 bg-burgundy px-6 py-3.5 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors hover:bg-burgundy-dark disabled:cursor-not-allowed disabled:opacity-70"
+                    className="mt-1 inline-flex items-center justify-center gap-2 bg-brand px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {status === 'loading' ? (
                       <>

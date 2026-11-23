@@ -58,10 +58,10 @@ export default function ProjectsContent() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-brand-light">
               BAJs PM&amp;C · Portfolio
             </p>
-            <h1 className="mt-5 max-w-2xl font-serif text-4xl leading-[1.1] sm:text-5xl">
+            <h1 className="mt-5 max-w-2xl font-bold tracking-tight text-4xl leading-[1.1] sm:text-5xl">
               Project catalogue
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-paper/60 sm:text-lg">
@@ -73,7 +73,7 @@ export default function ProjectsContent() {
           <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-paper/15 pt-6">
             {stats.map((stat) => (
               <div key={stat.label}>
-                <dd className="font-serif text-2xl text-paper sm:text-3xl">{stat.value}</dd>
+                <dd className="font-bold tracking-tight text-2xl text-paper sm:text-3xl">{stat.value}</dd>
                 <dt className="mt-1.5 text-[10px] font-semibold uppercase tracking-wider text-paper/50 sm:text-[11px]">
                   {stat.label}
                 </dt>
@@ -97,7 +97,7 @@ export default function ProjectsContent() {
                 className={[
                   'relative -mb-px flex items-center gap-2 pb-3 text-[11px] font-semibold uppercase tracking-wider transition-colors',
                   isActive
-                    ? 'border-b-2 border-burgundy text-ink'
+                    ? 'border-b-2 border-brand text-ink'
                     : 'border-b-2 border-transparent text-muted hover:text-ink',
                 ].join(' ')}
                 aria-pressed={isActive}

@@ -36,22 +36,22 @@ export default function TeamMemberContent({ member }: TeamMemberContentProps) {
             transition={{ duration: 0.5 }}
             className="flex flex-col gap-7 sm:flex-row sm:items-end"
           >
-            <div className="flex h-24 w-24 shrink-0 items-center justify-center border border-paper/20 bg-paper/5">
-              <span className="font-serif text-3xl text-paper">{initials(member.name)}</span>
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center border border-brand bg-brand">
+              <span className="font-bold text-3xl text-white">{initials(member.name)}</span>
             </div>
 
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-brand-light">
                 Leadership
               </p>
-              <h1 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">{member.name}</h1>
+              <h1 className="mt-3 font-bold tracking-tight text-3xl leading-tight sm:text-4xl">{member.name}</h1>
               <p className="mt-3 text-base text-paper/70">{member.title}</p>
               {member.actingTitle && (
-                <span className="mt-3 inline-block border border-gold-light/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-gold-light">
+                <span className="mt-3 inline-block border border-brand-light/60 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-brand-light">
                   {member.actingTitle}
                 </span>
               )}
-              <p className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-paper/40">
+              <p className="mt-2 text-sm font-semibold text-paper/40">
                 {member.role}
               </p>
             </div>
@@ -64,7 +64,7 @@ export default function TeamMemberContent({ member }: TeamMemberContentProps) {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
           <Link
             href="/#leadership"
-            className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted transition-colors hover:text-burgundy"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-brand"
           >
             <ArrowLeft size={14} />
             Back to leadership
@@ -84,10 +84,10 @@ export default function TeamMemberContent({ member }: TeamMemberContentProps) {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-burgundy">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-brand">
               Profile
             </p>
-            <h2 className="mt-3 font-serif text-2xl text-ink">About</h2>
+            <h2 className="mt-3 font-bold tracking-tight text-2xl text-ink">About</h2>
             <p className="mt-5 max-w-3xl text-base leading-relaxed text-muted">{member.longBio}</p>
           </motion.div>
         </div>
@@ -102,14 +102,14 @@ export default function TeamMemberContent({ member }: TeamMemberContentProps) {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            <h2 className="font-serif text-2xl text-ink">Responsibilities</h2>
+            <h2 className="font-bold tracking-tight text-2xl text-ink">Responsibilities</h2>
             <ul className="mt-6 grid grid-cols-1 gap-x-10 border-t border-rule sm:grid-cols-2">
               {member.responsibilities.map((item) => (
                 <li
                   key={item}
                   className="flex items-start gap-3 border-b border-rule/70 py-3.5 text-sm leading-relaxed text-muted"
                 >
-                  <Check size={14} className="mt-0.5 shrink-0 text-burgundy" strokeWidth={2} />
+                  <Check size={14} className="mt-0.5 shrink-0 text-brand" strokeWidth={2} />
                   {item}
                 </li>
               ))}
@@ -127,12 +127,12 @@ export default function TeamMemberContent({ member }: TeamMemberContentProps) {
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
           >
-            <h2 className="font-serif text-2xl text-ink">Skills</h2>
+            <h2 className="font-bold tracking-tight text-2xl text-ink">Skills</h2>
             <div className="mt-6 flex flex-wrap gap-2">
               {member.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="border border-rule bg-white px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-muted"
+                  className="border border-rule bg-white px-3 py-1.5 text-sm font-semibold text-muted"
                 >
                   {skill}
                 </span>
@@ -150,7 +150,7 @@ export default function TeamMemberContent({ member }: TeamMemberContentProps) {
               href={member.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 border border-ink px-5 py-3 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-paper"
+              className="group inline-flex items-center gap-2 border border-ink px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-paper"
             >
               Connect on LinkedIn
               <ArrowUpRight

@@ -33,7 +33,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-ink-deep bg-ink text-paper">
+    <footer className="border-t-2 border-brand bg-ink-deep text-paper">
       <div className="mx-auto max-w-6xl px-6 py-14">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-5 lg:pr-10">
@@ -47,7 +47,7 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-1 lg:col-span-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-brand-light">
               The Firm
             </h2>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-4">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-brand-light">
               Contact
             </h2>
             <ul className="mt-4 flex flex-col gap-3 text-[13px] text-paper/60">

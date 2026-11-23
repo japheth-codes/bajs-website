@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --background: #faf8f3;
-  --foreground: #16202a;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  --background: #ffffff;
+  --foreground: #1b1a19;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
 }
 
 html {
@@ -17,24 +16,31 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-sans);
-  font-feature-settings: 'kern' 1, 'liga' 1;
+  font-feature-settings: 'kern' 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: #6e2b2b;
-  color: #faf8f3;
+  background: #c74634;
+  color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid #6e2b2b;
+  outline: 2px solid #c74634;
   outline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.02em;
 }
 
 @layer components {
   .eyebrow {
-    @apply text-[11px] font-semibold uppercase tracking-widest text-burgundy;
+    @apply text-[11px] font-bold uppercase tracking-widest text-brand;
   }
 
   .label-rule {
@@ -43,7 +49,7 @@ body {
 
   .label-rule::before {
     content: '';
-    @apply block h-px w-8 bg-gold;
+    @apply block h-px w-8 bg-brand;
   }
 
   .prose-firm p {
@@ -61,6 +67,6 @@ body {
   }
 
   .hairline {
-    border-color: #d9d2c5;
+    border-color: #d8d4ce;
   }
 }

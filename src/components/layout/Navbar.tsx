@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { teamMembers } from '@/data/team';
+import { company, telHref } from '@/data/company';
 import { Wordmark } from '@/components/layout/Wordmark';
 
 const navLinks = [
@@ -43,28 +44,46 @@ export default function Navbar() {
 
   const linkClass = (href: string) =>
     [
-      'relative py-2 text-[13px] font-semibold tracking-wide transition-colors duration-200',
-      isActive(href) ? 'text-burgundy' : 'text-ink/70 hover:text-burgundy',
+      'relative py-2 text-sm font-semibold transition-colors duration-200',
+      isActive(href) ? 'text-brand' : 'text-ink hover:text-brand',
     ].join(' ');
 
   return (
-    <header className="sticky top-0 z-50 border-b border-rule bg-paper">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
+    <>
+      <div className="bg-ink-deep text-white">
+        <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-4 px-6 text-[11px]">
+          <p className="truncate font-medium text-white/60">
+            {company.name}
+          </p>
+          <div className="flex shrink-0 items-center gap-5 text-white/60">
+            <span className="hidden sm:inline">RC {company.rc}</span>
+            <a
+              href={`tel:${telHref(company.phones[0])}`}
+              className="font-medium transition-colors hover:text-white"
+            >
+              {company.phones[0]}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <header className="sticky top-0 z-50 border-b border-rule bg-paper">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Wordmark />
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
           <Link href="/" className={linkClass('/')}>
             Home
-            {isActive('/') && <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />}
+            {isActive('/') && <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />}
           </Link>
           <Link href="/about" className={linkClass('/about')}>
             About
-            {isActive('/about') && <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />}
+            {isActive('/about') && <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />}
           </Link>
           <Link href="/projects" className={linkClass('/projects')}>
             Projects
             {isActive('/projects') && (
-              <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />
             )}
           </Link>
 
@@ -77,10 +96,8 @@ export default function Navbar() {
             <button
               type="button"
               className={[
-                'flex items-center gap-1 py-2 text-[13px] font-semibold tracking-wide transition-colors duration-200',
-                pathname.startsWith('/team')
-                  ? 'text-burgundy'
-                  : 'text-ink/70 hover:text-burgundy',
+                'flex items-center gap-1 py-2 text-sm font-semibold transition-colors duration-200',
+                pathname.startsWith('/team') ? 'text-brand' : 'text-ink hover:text-brand',
               ].join(' ')}
               aria-expanded={teamOpen}
               aria-haspopup="true"
@@ -125,15 +142,15 @@ export default function Navbar() {
           <Link href="/contact" className={linkClass('/contact')}>
             Contact
             {isActive('/contact') && (
-              <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-brand" />
             )}
           </Link>
 
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 border border-ink bg-ink px-4 py-2.5 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors duration-200 hover:bg-burgundy hover:border-burgundy"
+            className="group inline-flex items-center gap-2 bg-brand px-4 py-2.5 text-[13px] font-bold text-white transition-colors duration-200 hover:bg-brand-dark"
           >
-            Discuss a project
+            Talk to an advisor
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
           </Link>
         </nav>
@@ -218,16 +235,17 @@ export default function Navbar() {
 
               <Link
                 href="/contact"
-                className="mt-4 inline-flex items-center justify-center gap-2 bg-ink px-4 py-3 text-[12px] font-semibold uppercase tracking-wider text-paper"
+                className="mt-4 inline-flex items-center justify-center gap-2 bg-brand px-4 py-3 text-[13px] font-bold text-white"
                 onClick={() => setMobileOpen(false)}
               >
-                Discuss a project
+                Talk to an advisor
                 <ArrowRight size={14} />
               </Link>
             </div>
           </motion.nav>
         )}
       </AnimatePresence>
-    </header>
+      </header>
+    </>
   );
 }

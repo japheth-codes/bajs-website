@@ -27,7 +27,7 @@ export default function AboutContent() {
               className="lg:col-span-7"
             >
               <p className="eyebrow">About the firm</p>
-              <h1 className="mt-5 font-serif text-4xl leading-[1.1] text-ink sm:text-5xl">
+              <h1 className="mt-5 font-bold tracking-tight text-4xl leading-[1.1] text-ink sm:text-5xl">
                 About BAJs
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted">
@@ -41,7 +41,7 @@ export default function AboutContent() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="border-t-2 border-gold pt-6 lg:col-span-4 lg:col-start-9"
+              className="border-t-2 border-brand pt-6 lg:col-span-4 lg:col-start-9"
             >
               <p className="text-[11px] font-semibold uppercase tracking-widest text-muted">
                 At a glance
@@ -79,21 +79,21 @@ export default function AboutContent() {
             viewport={{ once: true, margin: '-60px' }}
             className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16"
           >
-            <div className="border-t border-ink pt-6">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-burgundy">
+            <div className="border-t-2 border-brand pt-6">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-brand">
                 Our mission
               </p>
-              <h2 className="mt-3 font-serif text-2xl leading-snug text-ink">
+              <h2 className="mt-3 font-bold tracking-tight text-2xl leading-snug text-ink">
                 Integrated services for sustainable ventures.
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted">{company.mission}</p>
             </div>
 
-            <div className="border-t border-ink pt-6">
-              <p className="text-[11px] font-semibold uppercase tracking-widest text-burgundy">
+            <div className="border-t-2 border-brand pt-6">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-brand">
                 Our vision
               </p>
-              <h2 className="mt-3 font-serif text-2xl leading-snug text-ink">
+              <h2 className="mt-3 font-bold tracking-tight text-2xl leading-snug text-ink">
                 A leading multidisciplinary consultancy.
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted">{company.vision}</p>
@@ -114,7 +114,7 @@ export default function AboutContent() {
           >
             <div className="md:col-span-7">
               <p className="eyebrow">Our services</p>
-              <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+              <h2 className="mt-4 font-bold tracking-tight text-3xl leading-[1.15] text-ink sm:text-4xl">
                 Service areas
               </h2>
             </div>
@@ -142,11 +142,11 @@ export default function AboutContent() {
                     aria-expanded={isOpen}
                   >
                     <div className="flex items-start gap-5">
-                      <span className="mt-1 font-serif text-sm text-subtle">
+                      <span className="mt-1 font-bold tracking-tight text-sm text-subtle">
                         {String(index + 1).padStart(2, '0')}
                       </span>
                       <div>
-                        <h3 className="font-serif text-xl leading-snug text-ink">
+                        <h3 className="font-bold tracking-tight text-xl leading-snug text-ink">
                           {category.title}
                         </h3>
                         <p className="mt-1.5 text-sm leading-relaxed text-muted">
@@ -158,7 +158,7 @@ export default function AboutContent() {
                       size={18}
                       strokeWidth={1.5}
                       className={[
-                        'mt-1 shrink-0 text-burgundy transition-transform duration-200',
+                        'mt-1 shrink-0 text-brand transition-transform duration-200',
                         isOpen ? 'rotate-180' : '',
                       ].join(' ')}
                     />
@@ -190,7 +190,7 @@ export default function AboutContent() {
                                       key={item}
                                       className="flex items-start gap-2.5 text-sm leading-relaxed text-muted"
                                     >
-                                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gold" />
+                                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand" />
                                       {item}
                                     </li>
                                   ))}

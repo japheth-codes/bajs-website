@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion';
 
-type ColorVariant = 'ink' | 'burgundy' | 'paper';
+type ColorVariant = 'ink' | 'brand' | 'paper';
 
 const VARIANTS: Record<ColorVariant, string> = {
   ink: 'bg-ink text-paper',
-  burgundy: 'bg-burgundy text-paper',
+  brand: 'bg-brand text-paper',
   paper: 'bg-paper-alt text-ink border-b border-rule',
 };
 
@@ -29,7 +29,13 @@ export default function PageHero({
   const isCenter = align === 'center';
 
   return (
-    <section className={`${VARIANTS[variant]} py-16 sm:py-20`}>
+    <section
+      className={[
+        VARIANTS[variant],
+        'py-16 sm:py-20',
+        variant === 'ink' ? 'border-t-2 border-brand' : '',
+      ].join(' ')}
+    >
       <div className={`mx-auto max-w-6xl px-6 ${isCenter ? 'text-center' : ''}`}>
         {breadcrumb && (
           <motion.p
@@ -38,7 +44,7 @@ export default function PageHero({
             transition={{ duration: 0.4 }}
             className={[
               'mb-5 text-[11px] font-semibold uppercase tracking-widest',
-              isDark ? 'text-gold-light' : 'text-burgundy',
+              isDark ? 'text-brand-light' : 'text-brand',
             ].join(' ')}
           >
             {breadcrumb}
@@ -49,7 +55,7 @@ export default function PageHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="max-w-3xl font-serif text-4xl leading-[1.1] sm:text-5xl">{title}</h1>
+          <h1 className="max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">{title}</h1>
           {subtitle && (
             <p
               className={[

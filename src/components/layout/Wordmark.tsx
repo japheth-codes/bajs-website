@@ -10,18 +10,18 @@ export function BrandMark({ size = 32 }: { size?: number }) {
       aria-label="BAJs Project Management and Consultancy"
       className="shrink-0"
     >
-      <rect width="32" height="32" fill="#6E2B2B" />
+      <rect width="32" height="32" fill="#C74634" />
       <text
         x="16"
         y="22.5"
         textAnchor="middle"
-        fontFamily="Georgia, 'Times New Roman', serif"
-        fontSize="20"
-        fill="#FAF8F3"
+        fontFamily="Helvetica, Arial, sans-serif"
+        fontWeight="700"
+        fontSize="21"
+        fill="#FFFFFF"
       >
         B
       </text>
-      <rect x="6" y="27" width="20" height="1" fill="#A98B52" />
     </svg>
   );
 }
@@ -40,7 +40,7 @@ export function Wordmark({ inverse = false, size = 32, href = '/' }: WordmarkPro
       <span className="flex items-baseline gap-1.5 whitespace-nowrap">
         <span
           className={[
-            'font-serif text-[20px] leading-none',
+            'font-bold tracking-tight text-[20px] leading-none',
             inverse ? 'text-paper' : 'text-ink',
           ].join(' ')}
         >
@@ -49,7 +49,7 @@ export function Wordmark({ inverse = false, size = 32, href = '/' }: WordmarkPro
         <span
           className={[
             'text-[9px] font-semibold uppercase tracking-widest',
-            inverse ? 'text-gold-light' : 'text-burgundy',
+            inverse ? 'text-brand-light' : 'text-brand',
           ].join(' ')}
         >
           PM&amp;C
