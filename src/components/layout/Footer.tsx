@@ -29,20 +29,21 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer style={{ backgroundColor: '#2F2F2F' }} className="text-gray-300">
+    <footer style={{ backgroundColor: '#222222' }} className="text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* About column */}
           <div className="flex flex-col gap-3">
-            <h3 className="text-white text-lg font-bold tracking-wide">
+            <h3 className="text-white text-lg font-bold tracking-tight">
               <span className="text-primary">BAJs</span>{' '}
-              <span style={{ color: '#7A2E2E' }}>PM &amp; C</span>
+              <span className="text-burgundy">PM&C</span>
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
-              BAJs Project Management &amp; Consultancy — delivering innovative,
-              purpose-driven solutions across technology, operations, and strategy.
+            <p className="text-muted text-sm leading-relaxed">
+              BAJs Project Management &amp; Consultancy — delivering purpose-driven
+              project management, business development, IT, data, and finance solutions
+              across Africa and global markets.
             </p>
-            <p className="text-xs text-gray-500">RC Number: 7377476</p>
+            <p className="text-muted text-xs">RC Number: 7377476</p>
           </div>
 
           {/* Quick links column */}
@@ -72,25 +73,25 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               <li>
                 <a
-                  href="mailto:bajsprojmangandconsultancy@gmail.com"
+                  href="mailto:info@bajspmconsultancy.com"
                   className="flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors duration-200 break-all"
                 >
                   <Mail size={15} className="shrink-0 text-primary" />
-                  bajsprojmangandconsultancy@gmail.com
+                  info@bajspmconsultancy.com
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+2348000000000"
+                  href="tel:+2347031014067"
                   className="flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors duration-200"
                 >
                   <Phone size={15} className="shrink-0 text-primary" />
-                  +234 800 000 0000
+                  +234 703 101 4067
                 </a>
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com/in/bajs-projmang-and-consult"
+                  href="https://www.linkedin.com/company/bajs-pm-consultancy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors duration-200"

@@ -2,16 +2,18 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Briefcase, Building2, Cpu, BarChart2, ArrowRight, MapPin, Calendar } from 'lucide-react';
+import { Briefcase, Building2, Cpu, BarChart2, ArrowRight, MapPin, Calendar, Finance } from 'lucide-react';
 import CountUp from '@/components/ui/CountUp';
 import ProjectShowcase from '@/components/projects/ProjectShowcase';
+import SectionHeading from '@/components/ui/SectionHeading';
 import { company } from '@/data/company';
 import { teamMembers } from '@/data/team';
+import { projects } from '@/data/projects';
 
 const SERVICE_PREVIEW = [
   {
     Icon: Briefcase,
-    title: 'Project Development',
+    title: 'Project Management & Consultancy',
     desc: 'End-to-end consultancy, planning and lifecycle management from concept to delivery.',
     color: '#5EC9C3',
   },
@@ -25,19 +27,25 @@ const SERVICE_PREVIEW = [
     Icon: Cpu,
     title: 'IT Services',
     desc: 'Technology strategy, full-stack software engineering and SDLC execution.',
-    color: '#a78bfa',
+    color: '#168C52',
   },
   {
     Icon: BarChart2,
     title: 'Data Analysis',
     desc: 'Statistical modelling, data visualisation, and evidence-based decision frameworks.',
-    color: '#60a5fa',
+    color: '#7A2E2E',
+  },
+  {
+    Icon: Finance,
+    title: 'Finance',
+    desc: 'Financial modelling, budgeting, forecasting and business valuation services.',
+    color: '#5EC9C3',
   },
 ];
 
 const STATS = [
-  { isNumeric: true, target: 6, display: null, label: 'Active Projects' },
-  { isNumeric: true, target: 4, display: null, label: 'Service Areas' },
+  { isNumeric: true, target: projects.length, display: null, label: 'Active Projects' },
+  { isNumeric: true, target: 5, display: null, label: 'Service Areas' },
   { isNumeric: false, target: 0, display: '2024', label: 'Year Founded' },
   { isNumeric: false, target: 0, display: 'Abuja', label: 'Nigeria' },
 ];
@@ -61,7 +69,7 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-const TEAM_COLORS = ['#5EC9C3', '#F2B94B', '#a78bfa'];
+const TEAM_COLORS = ['#5EC9C3', '#F2B94B', '#168C52'];
 
 export default function HomeContent() {
   return (
@@ -69,46 +77,8 @@ export default function HomeContent() {
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{ background: '#06100f' }}
+        style={{ background: '#ffffff' }}
       >
-        {/* Animated grid */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(94,201,195,1) 1px, transparent 1px), linear-gradient(90deg, rgba(94,201,195,1) 1px, transparent 1px)',
-            backgroundSize: '80px 80px',
-          }}
-        />
-
-        {/* Animated blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div
-            className="absolute -top-1/4 -left-1/4 w-3/4 h-3/4 rounded-full opacity-20"
-            style={{
-              background: 'radial-gradient(circle, #5EC9C3 0%, transparent 60%)',
-              animation: 'meshFloat 10s ease-in-out infinite',
-              filter: 'blur(60px)',
-            }}
-          />
-          <div
-            className="absolute -bottom-1/3 right-0 w-2/3 h-2/3 rounded-full opacity-15"
-            style={{
-              background: 'radial-gradient(circle, #7A2E2E 0%, transparent 60%)',
-              animation: 'meshFloat2 13s ease-in-out infinite',
-              filter: 'blur(80px)',
-            }}
-          />
-          <div
-            className="absolute top-1/3 left-1/2 w-1/2 h-1/2 rounded-full opacity-10"
-            style={{
-              background: 'radial-gradient(circle, #a78bfa 0%, transparent 60%)',
-              animation: 'meshFloat 18s ease-in-out infinite 2s',
-              filter: 'blur(100px)',
-            }}
-          />
-        </div>
-
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
@@ -119,48 +89,38 @@ export default function HomeContent() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 mb-8"
+              className="inline-flex items-center gap-2 rounded-full border border-gray-100 bg-white px-4 py-2 mb-8"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#5EC9C3]/50" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#5EC9C3]" />
               </span>
-              <p className="text-white/70 text-xs font-semibold tracking-[0.15em] uppercase">
+              <p className="text-muted text-xs font-semibold tracking-[0.15em] uppercase">
                 BAJs Project Management &amp; Consultancy
               </p>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black text-white leading-[0.92] tracking-tight mb-6">
-              Redefining
-              <br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{
-                  backgroundImage: 'linear-gradient(90deg, #5EC9C3 0%, #a78bfa 60%, #F2B94B 100%)',
-                }}
-              >
-                Operational
-              </span>
-              <br />
-              Efficiency
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-dark leading-[0.92] tracking-tight mb-6">
+              Purpose-driven<br />
+              <span className="text-burgundy">consultancy.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-white/55 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
               {company.mission}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/projects"
-                className="group inline-flex items-center justify-center gap-2 rounded-full font-bold px-8 py-4 text-base text-[#06100f] transition-all duration-300 shadow-xl hover:shadow-[#5EC9C3]/30 hover:scale-105"
-                style={{ background: 'linear-gradient(135deg, #5EC9C3 0%, #a78bfa 100%)' }}
+                className="group inline-flex items-center justify-center gap-2 rounded-lg font-bold px-8 py-4 text-base text-white transition-all duration-200 shadow-md hover:shadow-lg"
+                style={{ background: '#7A2E2E' }}
               >
                 View Our Projects
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 text-white font-semibold px-8 py-4 text-base hover:bg-white/5 hover:border-white/40 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 text-dark font-semibold px-8 py-4 text-base hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
               >
                 Get In Touch
               </Link>
@@ -172,20 +132,20 @@ export default function HomeContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex items-center justify-center gap-4 mt-16 flex-wrap"
+            className="flex items-center justify-center gap-6 mt-16 flex-wrap"
           >
-            <div className="inline-flex items-center gap-2 text-white/40 text-sm">
+            <div className="inline-flex items-center gap-2 text-muted text-sm">
               <MapPin size={14} className="text-[#5EC9C3]" />
               Abuja, Nigeria
             </div>
-            <span className="w-px h-4 bg-white/15" />
-            <div className="inline-flex items-center gap-2 text-white/40 text-sm">
+            <span className="w-px h-6 bg-gray-200" />
+            <div className="inline-flex items-center gap-2 text-muted text-sm">
               <Calendar size={14} className="text-[#5EC9C3]" />
               Est. 2024
             </div>
-            <span className="w-px h-4 bg-white/15" />
-            <div className="inline-flex items-center gap-2 text-white/40 text-sm">
-              <span className="text-[#F2B94B] text-xs font-bold">RC</span>
+            <span className="w-px h-6 bg-gray-200" />
+            <div className="inline-flex items-center gap-2 text-muted text-sm">
+              <span className="text-[#7A2E2E] text-xs font-bold">RC</span>
               {company.rc}
             </div>
           </motion.div>
@@ -197,8 +157,8 @@ export default function HomeContent() {
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
         >
-          <div className="w-5 h-9 rounded-full border border-white/20 flex items-start justify-center pt-1.5">
-            <div className="w-0.5 h-2 rounded-full bg-white/40" />
+          <div className="w-5 h-9 rounded-full border border-gray-300 flex items-start justify-center pt-1.5">
+            <div className="w-0.5 h-2 rounded-full bg-[#7A2E2E]" />
           </div>
         </motion.div>
       </section>

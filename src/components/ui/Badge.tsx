@@ -1,6 +1,6 @@
 import React from 'react';
 
-type BadgeVariant = 'mvp' | 'concept' | 'research' | 'live';
+type BadgeVariant = 'mvp' | 'concept' | 'research' | 'deployed' | 'secondary';
 
 interface BadgeProps {
   variant: BadgeVariant;
@@ -10,9 +10,10 @@ interface BadgeProps {
 
 const variantClasses: Record<BadgeVariant, string> = {
   mvp: 'bg-secondary text-dark',
-  concept: 'bg-primary text-white',
+  concept: 'bg-primary text-dark',
   research: 'bg-accent text-white',
-  live: 'bg-emerald-500 text-dark',
+  deployed: 'bg-burgundy text-white',
+  secondary: 'bg-muted text-white',
 };
 
 export default function Badge({ variant, children, className = '' }: BadgeProps) {

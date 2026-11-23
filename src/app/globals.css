@@ -3,27 +3,33 @@
 @tailwind utilities;
 
 :root {
+  /* BAJs PM&C brand palette — explicitly specified in branding package */
   --background: #ffffff;
-  --foreground: #171717;
-  --color-primary: #5EC9C3;
-  --color-secondary: #F2B94B;
-  --color-accent: #10C45C;
-  --color-dark: #2F2F2F;
-  --color-maroon: #7A2E2E;
-  --font-sans: 'Inter', sans-serif;
+  --foreground: #222222;
+  --color-primary: #5EC9C3;      /* Turquoise — favicon background */
+  --color-secondary: #F2B94B;    /* Golden yellow — Acting CEO badge */
+  --color-accent: #168C52;       /* Green — provisional (visual approximation) */
+  --color-dark: #222222;         /* Charcoal — primary text neutral */
+  --color-burgundy: #7A2E2E;     /* Deep burgundy — favicon letter */
+  --color-muted: #555555;        /* Muted dark grey — secondary supporting text */
+  --color-subtle: #888888;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --color-dark: #ededed;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
 @layer utilities {

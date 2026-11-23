@@ -1,0 +1,9 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .b { fill: #7A2E2E; font-family: Arial, sans-serif; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#5EC9C3" />
+  <text x="32" y="40" text-anchor="middle" class="b" font-size="34">B</text>
+</svg>

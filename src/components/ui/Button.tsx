@@ -1,6 +1,6 @@
 import React from 'react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,17 +12,19 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-primary text-white hover:bg-primary-dark focus-visible:ring-primary',
+    'bg-burgundy text-white hover:bg-burgundy-dark focus-visible:ring-burgundy',
   secondary:
-    'bg-secondary text-dark hover:bg-secondary-dark focus-visible:ring-secondary',
+    'bg-primary text-dark hover:bg-primary-dark focus-visible:ring-primary',
   outline:
-    'border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-white focus-visible:ring-primary',
+    'border-2 border-burgundy text-burgundy bg-transparent hover:bg-burgundy hover:text-white focus-visible:ring-burgundy',
+  ghost:
+    'text-dark hover:text-burgundy focus-visible:ring-burgundy',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
   sm: 'px-3 py-1.5 text-sm',
   md: 'px-5 py-2.5 text-base',
-  lg: 'px-7 py-3.5 text-lg',
+  lg: 'px-8 py-4 text-lg',
 };
 
 export default function Button({
@@ -36,9 +38,9 @@ export default function Button({
   return (
     <button
       className={[
-        'inline-flex items-center gap-2 rounded-md font-semibold transition-colors duration-200',
+        'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-all duration-200',
         'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-        'disabled:opacity-50 disabled:cursor-not-allowed',
+        'disabled:opacity-50 disabled:cursor-not-allowed active:scale-95',
         variantClasses[variant],
         sizeClasses[size],
         className,

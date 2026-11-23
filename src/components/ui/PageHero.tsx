@@ -2,12 +2,12 @@
 
 import { motion } from 'framer-motion';
 
-type ColorVariant = 'aqua' | 'maroon' | 'dark';
+type ColorVariant = 'burgundy' | 'dark' | 'primary';
 
 const GRADIENTS: Record<ColorVariant, string> = {
-  aqua: 'linear-gradient(135deg, #0d3b37 0%, #1a6a64 45%, #2e9e98 100%)',
-  maroon: 'linear-gradient(135deg, #7A2E2E 0%, #3d1111 100%)',
-  dark: 'linear-gradient(135deg, #1a1a1a 0%, #2F2F2F 100%)',
+  burgundy: 'linear-gradient(135deg, #7A2E2E 0%, #5A1E1E 100%)',
+  dark: 'linear-gradient(135deg, #222222 0%, #171717 100%)',
+  primary: 'linear-gradient(135deg, #5EC9C3 0%, #3BA8A2 100%)',
 };
 
 interface PageHeroProps {
@@ -22,7 +22,7 @@ export default function PageHero({
   title,
   subtitle,
   breadcrumb,
-  variant = 'dark',
+  variant = 'burgundy',
   align = 'left',
 }: PageHeroProps) {
   const isCenter = align === 'center';
@@ -35,7 +35,7 @@ export default function PageHero({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-white/60 text-xs font-semibold tracking-[0.15em] uppercase mb-3"
+            className="text-primary/90 text-xs font-semibold tracking-[0.15em] uppercase mb-3"
           >
             {breadcrumb}
           </motion.p>
@@ -47,7 +47,7 @@ export default function PageHero({
         >
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">{title}</h1>
           {subtitle && (
-            <p className={`text-white/70 text-lg ${isCenter ? 'mx-auto' : ''} max-w-2xl`}>
+            <p className={`text-white/80 text-lg ${isCenter ? 'mx-auto' : ''} max-w-2xl leading-relaxed`}>
               {subtitle}
             </p>
           )}
