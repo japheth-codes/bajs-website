@@ -4,7 +4,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1b1a19;
+  --foreground: #222222;
   --font-sans: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
 }
 
@@ -22,12 +22,12 @@ body {
 }
 
 ::selection {
-  background: #c74634;
+  background: #7a2e2e;
   color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid #c74634;
+  outline: 2px solid #7a2e2e;
   outline-offset: 3px;
 }
 
@@ -67,6 +67,6 @@ h4 {
   }
 
   .hairline {
-    border-color: #d8d4ce;
+    border-color: #dcdad5;
   }
 }

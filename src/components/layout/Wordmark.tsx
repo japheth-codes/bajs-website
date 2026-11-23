@@ -10,7 +10,7 @@ export function BrandMark({ size = 32 }: { size?: number }) {
       aria-label="BAJs Project Management and Consultancy"
       className="shrink-0"
     >
-      <rect width="32" height="32" fill="#C74634" />
+      <rect width="32" height="32" fill="#7A2E2E" />
       <text
         x="16"
         y="22.5"
@@ -22,6 +22,7 @@ export function BrandMark({ size = 32 }: { size?: number }) {
       >
         B
       </text>
+      <rect x="6" y="27" width="20" height="1.5" fill="#5EC9C3" />
     </svg>
   );
 }

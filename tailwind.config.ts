@@ -11,25 +11,41 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
-        // Enterprise palette: Oracle-style red, near-black and cool greys.
+        // BAJs brand palette, kept intact. Burgundy leads interaction,
+        // turquoise and gold are supporting accents.
         brand: {
-          DEFAULT: '#C74634',
-          dark: '#A33527',
-          light: '#EE8878',
+          DEFAULT: '#7A2E2E',
+          dark: '#5E2020',
+          light: '#A8E6E3',
+        },
+        teal: {
+          DEFAULT: '#5EC9C3',
+          dark: '#3BA8A2',
+          light: '#A8E6E3',
+        },
+        gold: {
+          DEFAULT: '#F2B94B',
+          dark: '#D4963A',
+          light: '#F7D48A',
+        },
+        green: {
+          DEFAULT: '#168C52',
+          dark: '#0E6A3F',
+          light: '#2FA373',
         },
         ink: {
-          DEFAULT: '#1B1A19',
-          deep: '#111110',
-          soft: '#2E2C29',
+          DEFAULT: '#222222',
+          deep: '#171717',
+          soft: '#333333',
         },
         paper: {
           DEFAULT: '#FFFFFF',
-          alt: '#F5F3EF',
-          dark: '#EAE7E1',
+          alt: '#F5F4F1',
+          dark: '#EAE8E3',
         },
-        rule: '#D8D4CE',
-        muted: '#5B5854',
-        subtle: '#7A7671',
+        rule: '#DCDAD5',
+        muted: '#555555',
+        subtle: '#888888',
       },
       fontFamily: {
         sans: [
@@ -51,10 +67,10 @@ const config: Config = {
         full: '9999px',
       },
       boxShadow: {
-        sm: '0 1px 2px 0 rgb(17 17 16 / 0.06)',
-        DEFAULT: '0 1px 3px 0 rgb(17 17 16 / 0.08)',
-        md: '0 8px 24px -16px rgb(17 17 16 / 0.2)',
-        lg: '0 16px 40px -24px rgb(17 17 16 / 0.24)',
+        sm: '0 1px 2px 0 rgb(34 34 34 / 0.06)',
+        DEFAULT: '0 1px 3px 0 rgb(34 34 34 / 0.08)',
+        md: '0 8px 24px -16px rgb(34 34 34 / 0.2)',
+        lg: '0 16px 40px -24px rgb(34 34 34 / 0.24)',
       },
       letterSpacing: {
         wider: '0.06em',

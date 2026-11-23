@@ -154,7 +154,7 @@ export default function HomeContent() {
                   index % 2 === 1 ? 'border-l border-rule lg:border-l-0' : '',
                 ].join(' ')}
               >
-                <dd className="font-bold text-4xl tracking-tight text-ink sm:text-5xl">
+                <dd className="font-bold text-4xl tracking-tight text-brand sm:text-5xl">
                   {typeof stat.value === 'number' ? <CountUp target={stat.value} /> : stat.value}
                 </dd>
                 <dt className="mt-2 text-sm font-semibold text-muted">
@@ -303,7 +303,7 @@ export default function HomeContent() {
                   href={`/team/${member.slug}`}
                   className="group flex h-full flex-col border border-rule bg-paper p-6 transition-colors hover:border-ink/30"
                 >
-                  <div className="flex h-14 w-14 items-center justify-center border border-rule bg-white font-bold tracking-tight text-lg text-brand">
+                  <div className="flex h-14 w-14 items-center justify-center bg-brand font-bold tracking-tight text-lg text-white">
                     {initials(member.name)}
                   </div>
                   <h3 className="mt-5 font-bold tracking-tight text-xl leading-snug text-ink">
@@ -340,7 +340,7 @@ export default function HomeContent() {
             className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end"
           >
             <div className="lg:col-span-8">
-              <p className="text-[11px] font-bold uppercase tracking-widest text-white/70">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-brand-light">
                 Work with us
               </p>
               <h2 className="mt-4 max-w-2xl text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl">

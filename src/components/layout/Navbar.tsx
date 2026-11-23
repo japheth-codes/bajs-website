@@ -50,12 +50,13 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="bg-ink-deep text-white">
+      <div className="bg-brand text-white">
         <div className="mx-auto flex h-9 max-w-6xl items-center justify-between gap-4 px-6 text-[11px]">
-          <p className="truncate font-medium text-white/60">
-            {company.name}
+          <p className="flex min-w-0 items-center gap-2 truncate font-medium text-white/75">
+            <span className="h-1.5 w-1.5 shrink-0 bg-teal" aria-hidden="true" />
+            <span className="truncate">{company.name}</span>
           </p>
-          <div className="flex shrink-0 items-center gap-5 text-white/60">
+          <div className="flex shrink-0 items-center gap-5 text-white/75">
             <span className="hidden sm:inline">RC {company.rc}</span>
             <a
               href={`tel:${telHref(company.phones[0])}`}
