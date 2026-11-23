@@ -5,8 +5,10 @@ export const services: ServiceCategory[] = [
     id: 1,
     title: 'Project Development & Management',
     icon: 'FolderKanban',
+    summary:
+      'End-to-end consultancy, planning and lifecycle management from concept to delivery.',
     description:
-      'End-to-end support for projects from initial idea through structured execution — covering consultancy, conceptualisation, planning, and active lifecycle management.',
+      'End-to-end support for projects from initial idea through structured execution, covering consultancy, conceptualisation, planning and active lifecycle management.',
     services: [
       {
         name: 'Consultancy',
@@ -45,6 +47,8 @@ export const services: ServiceCategory[] = [
     id: 2,
     title: 'Business Development & Management',
     icon: 'TrendingUp',
+    summary:
+      'Market analysis, business model design and investment-ready documentation.',
     description:
       'Comprehensive business intelligence and advisory services that take organisations from market insight to structured, investment-ready business operations.',
     services: [
@@ -77,8 +81,10 @@ export const services: ServiceCategory[] = [
     id: 3,
     title: 'IT Services',
     icon: 'Monitor',
+    summary:
+      'Technology, strategy, software engineering, cyber security and networks.',
     description:
-      'Full-spectrum technology services from strategic IT consultancy through software engineering, product delivery, and digitisation of business operations.',
+      'Full-spectrum technology services from strategic IT consultancy through software engineering, product delivery, cyber security, networks and digitisation of business operations.',
     services: [
       {
         name: 'Consultancy',
@@ -111,14 +117,35 @@ export const services: ServiceCategory[] = [
           'Systems integration and workflow tooling',
         ],
       },
+      {
+        name: 'Data Protection & Cyber Security',
+        items: [
+          'Data protection compliance: GDPR and NDPR / NDPA (Nigeria Data Protection Act 2023)',
+          'Cyber Essentials (CE) and Cyber Essentials Plus (CE+) implementation and assessment',
+          'Compliance and assessment against other certifying bodies in Nigeria and West Africa',
+          'Penetration testing',
+          'IT asset management (ITAM): hardware and software inventory, licence compliance, lifecycle tracking and secure disposal',
+        ],
+      },
+      {
+        name: 'Networks',
+        items: [
+          'Network design and architecture',
+          'Network installation and configuration',
+          'Network security and monitoring',
+          'Network support and maintenance',
+        ],
+      },
     ],
   },
   {
     id: 4,
     title: 'Data Analysis',
     icon: 'BarChart3',
+    summary:
+      'Statistical modelling, data visualisation and evidence-based decision frameworks.',
     description:
-      'Rigorous data-driven services spanning research design, quantitative and qualitative analysis, modelling, and performance evaluation for evidence-based decision-making.',
+      'Extensive data-driven services spanning research design, quantitative and qualitative analysis, modelling, and performance evaluation for evidence-based decision-making.',
     services: [
       {
         name: 'Consultancy',
@@ -142,6 +169,49 @@ export const services: ServiceCategory[] = [
           'Quality assurance and data integrity review',
           'Performance analysis and KPI tracking',
           'Evaluation frameworks and impact assessment',
+        ],
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: 'Finance',
+    icon: 'Landmark',
+    summary:
+      'Financial advisory, accounting, asset management and grant sourcing.',
+    description:
+      'Financial advisory and management services that give organisations the controls, reporting and funding structure needed to operate with confidence.',
+    services: [
+      {
+        name: 'Financial Advisory',
+        items: [
+          'Financial modelling and forecasting',
+          'Business valuation and feasibility assessment',
+          'Budget development and variance reporting',
+        ],
+      },
+      {
+        name: 'Accounting & Reporting',
+        items: [
+          'Bookkeeping and management accounts',
+          'Financial controls and compliance support',
+          'Management reporting and analysis',
+        ],
+      },
+      {
+        name: 'Asset Management',
+        items: [
+          'Asset registers and lifecycle tracking',
+          'Cost-benefit analysis',
+          'Procurement and disposal advisory',
+        ],
+      },
+      {
+        name: 'Grant Sourcing',
+        items: [
+          'Funding landscape research',
+          'Proposal and grant application support',
+          'Donor reporting frameworks',
         ],
       },
     ],

@@ -1,42 +1,72 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        // BAJs PM&C brand palette
-        primary: { DEFAULT: '#5EC9C3', light: '#A8E6E3', dark: '#3BA8A2' },   // Turquoise
-        secondary: { DEFAULT: '#F2B94B', light: '#F7D48A', dark: '#D4963A' }, // Golden yellow
-        accent: { DEFAULT: '#168C52', light: '#2FA373', dark: '#0E6A3F' },    // Green (provisional)
-        dark: { DEFAULT: '#222222', muted: '#555555', subtle: '#888888' },    // Charcoal neutrals
-        burgundy: { DEFAULT: '#7A2E2E', light: '#A84444', dark: '#5A1E1E' },  // Deep burgundy
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        // Institutional palette: paper, ink, burgundy, restrained gold.
+        ink: {
+          DEFAULT: '#16202A',
+          deep: '#0E161D',
+          soft: '#2B3742',
+        },
+        paper: {
+          DEFAULT: '#FAF8F3',
+          alt: '#F1ECE2',
+          dark: '#E7E0D3',
+        },
+        burgundy: {
+          DEFAULT: '#6E2B2B',
+          dark: '#542020',
+          light: '#8A3A3A',
+        },
+        gold: {
+          DEFAULT: '#A98B52',
+          light: '#C9B183',
+        },
+        rule: '#D9D2C5',
+        muted: '#545B62',
+        subtle: '#7C8389',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-serif)', 'Georgia', 'serif'],
+        sans: [
+          'var(--font-sans)',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'sans-serif',
+        ],
+        serif: ['Georgia', 'Times New Roman', 'Times', 'serif'],
       },
       borderRadius: {
-        sm: '4px',
-        DEFAULT: '8px',
-        md: '12px',
-        lg: '16px',
+        sm: '1px',
+        DEFAULT: '2px',
+        md: '3px',
+        lg: '4px',
+        xl: '6px',
         full: '9999px',
       },
       boxShadow: {
-        sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-        DEFAULT: '0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.04)',
-        md: '0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
-        lg: '0 20px 25px -5px rgb(0 0 0 / 0.06), 0 8px 10px -6px rgb(0 0 0 / 0.03)',
+        sm: '0 1px 2px 0 rgb(22 32 42 / 0.05)',
+        DEFAULT: '0 2px 8px -2px rgb(22 32 42 / 0.08)',
+        md: '0 8px 24px -12px rgb(22 32 42 / 0.18)',
+        lg: '0 16px 40px -20px rgb(22 32 42 / 0.22)',
+      },
+      letterSpacing: {
+        wider: '0.12em',
+        widest: '0.18em',
       },
       transitionTimingFunction: {
-        'bajs-ease': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'bajs-ease': 'cubic-bezier(0.33, 0, 0.2, 1)',
       },
     },
   },

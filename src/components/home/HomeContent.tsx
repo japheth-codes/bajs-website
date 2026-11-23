@@ -2,364 +2,225 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Briefcase, Building2, Cpu, BarChart2, ArrowRight, MapPin, Calendar, Finance } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  FolderKanban,
+  Landmark,
+  Monitor,
+  TrendingUp,
+} from 'lucide-react';
 import CountUp from '@/components/ui/CountUp';
 import ProjectShowcase from '@/components/projects/ProjectShowcase';
-import SectionHeading from '@/components/ui/SectionHeading';
 import { company } from '@/data/company';
 import { teamMembers } from '@/data/team';
 import { projects } from '@/data/projects';
+import { services } from '@/data/services';
 
-const SERVICE_PREVIEW = [
-  {
-    Icon: Briefcase,
-    title: 'Project Management & Consultancy',
-    desc: 'End-to-end consultancy, planning and lifecycle management from concept to delivery.',
-    color: '#5EC9C3',
-  },
-  {
-    Icon: Building2,
-    title: 'Business Development',
-    desc: 'Market analysis, business model design, and investment-ready documentation.',
-    color: '#F2B94B',
-  },
-  {
-    Icon: Cpu,
-    title: 'IT Services',
-    desc: 'Technology strategy, full-stack software engineering and SDLC execution.',
-    color: '#168C52',
-  },
-  {
-    Icon: BarChart2,
-    title: 'Data Analysis',
-    desc: 'Statistical modelling, data visualisation, and evidence-based decision frameworks.',
-    color: '#7A2E2E',
-  },
-  {
-    Icon: Finance,
-    title: 'Finance',
-    desc: 'Financial modelling, budgeting, forecasting and business valuation services.',
-    color: '#5EC9C3',
-  },
-];
-
-const STATS = [
-  { isNumeric: true, target: projects.length, display: null, label: 'Active Projects' },
-  { isNumeric: true, target: 5, display: null, label: 'Service Areas' },
-  { isNumeric: false, target: 0, display: '2024', label: 'Year Founded' },
-  { isNumeric: false, target: 0, display: 'Abuja', label: 'Nigeria' },
-];
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+const ICONS: Record<string, React.ElementType> = {
+  FolderKanban,
+  TrendingUp,
+  Monitor,
+  BarChart3,
+  Landmark,
 };
 
-const staggerContainer = {
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
-function getInitials(name: string) {
+function initials(name: string) {
   return name
     .split(' ')
-    .map((n) => n[0])
+    .map((part) => part[0])
     .join('')
     .slice(0, 2)
     .toUpperCase();
 }
 
-const TEAM_COLORS = ['#5EC9C3', '#F2B94B', '#168C52'];
-
 export default function HomeContent() {
+  const facts = [
+    { label: 'Established', value: company.founded },
+    { label: 'Registration', value: `RC ${company.rc}` },
+    { label: 'Head office', value: 'Abuja, Nigeria' },
+    { label: 'Service areas', value: String(services.length) },
+  ];
+
+  const stats = [
+    { value: projects.length, label: 'Projects in portfolio' },
+    { value: services.length, label: 'Current service areas' },
+    { value: company.founded, label: 'Year established' },
+    { value: 'Abuja', label: 'Head office' },
+  ];
+
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{ background: '#ffffff' }}
-      >
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
-          >
+      {/* Hero */}
+      <section className="border-b border-rule bg-paper">
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2 rounded-full border border-gray-100 bg-white px-4 py-2 mb-8"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-7"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#5EC9C3]/50" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#5EC9C3]" />
-              </span>
-              <p className="text-muted text-xs font-semibold tracking-[0.15em] uppercase">
-                BAJs Project Management &amp; Consultancy
+              <p className="eyebrow">BAJs Project Management &amp; Consultancy</p>
+
+              <h1 className="mt-6 font-serif text-[2.6rem] leading-[1.08] tracking-tight text-ink sm:text-6xl">
+                Practical counsel.
+                <br />
+                Disciplined delivery.
+              </h1>
+
+              <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
+                {company.tagline}
+              </p>
+
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center justify-center gap-2 bg-burgundy px-7 py-4 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors hover:bg-burgundy-dark"
+                >
+                  Discuss a project
+                  <ArrowRight
+                    size={15}
+                    className="transition-transform group-hover:translate-x-0.5"
+                  />
+                </Link>
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center justify-center gap-2 border border-ink/25 px-7 py-4 text-[12px] font-semibold uppercase tracking-wider text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+                >
+                  View our work
+                </Link>
+              </div>
+
+              <p className="mt-10 max-w-md border-l-2 border-gold pl-4 text-sm leading-relaxed text-muted">
+                We help organisations plan, structure and deliver projects across technology,
+                business operations and strategy, in Nigeria, across Africa and globally.
               </p>
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-dark leading-[0.92] tracking-tight mb-6">
-              Purpose-driven<br />
-              <span className="text-burgundy">consultancy.</span>
-            </h1>
-
-            <p className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10 leading-relaxed">
-              {company.mission}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/projects"
-                className="group inline-flex items-center justify-center gap-2 rounded-lg font-bold px-8 py-4 text-base text-white transition-all duration-200 shadow-md hover:shadow-lg"
-                style={{ background: '#7A2E2E' }}
-              >
-                View Our Projects
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 text-dark font-semibold px-8 py-4 text-base hover:bg-gray-50 hover:border-gray-300 transition-all duration-200"
-              >
-                Get In Touch
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Floating info chips */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex items-center justify-center gap-6 mt-16 flex-wrap"
-          >
-            <div className="inline-flex items-center gap-2 text-muted text-sm">
-              <MapPin size={14} className="text-[#5EC9C3]" />
-              Abuja, Nigeria
-            </div>
-            <span className="w-px h-6 bg-gray-200" />
-            <div className="inline-flex items-center gap-2 text-muted text-sm">
-              <Calendar size={14} className="text-[#5EC9C3]" />
-              Est. 2024
-            </div>
-            <span className="w-px h-6 bg-gray-200" />
-            <div className="inline-flex items-center gap-2 text-muted text-sm">
-              <span className="text-[#7A2E2E] text-xs font-bold">RC</span>
-              {company.rc}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
-        >
-          <div className="w-5 h-9 rounded-full border border-gray-300 flex items-start justify-center pt-1.5">
-            <div className="w-0.5 h-2 rounded-full bg-[#7A2E2E]" />
+            <motion.aside
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="border border-rule bg-white lg:col-span-5"
+            >
+              <div className="h-[3px] w-full bg-burgundy" />
+              <div className="p-7">
+                <p className="text-[11px] font-semibold uppercase tracking-widest text-muted">
+                  Firm profile
+                </p>
+                <dl className="mt-5 divide-y divide-rule/70 border-t border-rule/70">
+                  {facts.map((fact) => (
+                    <div key={fact.label} className="flex items-baseline justify-between gap-4 py-3.5">
+                      <dt className="text-[11px] font-semibold uppercase tracking-wider text-subtle">
+                        {fact.label}
+                      </dt>
+                      <dd className="text-right text-sm font-medium text-ink">{fact.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="mt-5 text-[13px] leading-relaxed text-muted">
+                  A multidisciplinary firm working alongside public, private and development-sector
+                  organisations.
+                </p>
+              </div>
+            </motion.aside>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────────────────────── */}
-      <section style={{ background: '#0d0d0d' }} className="py-12 border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-6">
+      {/* Stats strip */}
+      <section className="border-b border-rule bg-white">
+        <div className="mx-auto max-w-6xl px-6">
+          <dl className="grid grid-cols-2 divide-x divide-rule lg:grid-cols-4">
+            {stats.map((stat, index) => (
+              <div
+                key={stat.label}
+                className={[
+                  'px-2 py-7 sm:px-6',
+                  index > 1 ? 'border-t border-rule lg:border-t-0' : '',
+                  index % 2 === 1 ? 'border-l border-rule lg:border-l-0' : '',
+                ].join(' ')}
+              >
+                <dd className="font-serif text-3xl text-ink sm:text-4xl">
+                  {typeof stat.value === 'number' ? <CountUp target={stat.value} /> : stat.value}
+                </dd>
+                <dt className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-muted">
+                  {stat.label}
+                </dt>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="border-b border-rule bg-paper py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
           <motion.div
-            variants={staggerContainer}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-60px' }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end"
           >
-            {STATS.map((stat, i) => (
-              <motion.div key={i} variants={fadeInUp} className="flex flex-col gap-1">
-                <span
-                  className="text-4xl md:text-5xl font-black text-transparent bg-clip-text"
-                  style={{ backgroundImage: 'linear-gradient(135deg, #5EC9C3 0%, #a78bfa 100%)' }}
-                >
-                  {stat.isNumeric ? <CountUp target={stat.target} /> : stat.display}
-                </span>
-                <span className="text-sm text-white/35 font-medium">{stat.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── PROJECTS SHOWCASE ─────────────────────────────────────────── */}
-      <section style={{ background: '#080808' }} className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-12"
-          >
-            <div>
-              <p className="text-[#5EC9C3] text-xs font-semibold tracking-[0.2em] uppercase mb-3">
-                Our Portfolio
-              </p>
-              <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight">
-                Projects We&apos;re
-                <br />
-                <span
-                  className="text-transparent bg-clip-text"
-                  style={{ backgroundImage: 'linear-gradient(90deg, #5EC9C3 0%, #a78bfa 100%)' }}
-                >
-                  Building
-                </span>
+            <div className="md:col-span-7">
+              <p className="eyebrow">What we do</p>
+              <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+                Five pillars of excellence
               </h2>
-              <p className="text-white/40 text-base mt-3 max-w-md">
-                Innovative platforms in active development across critical sectors of the Nigerian economy.
-              </p>
             </div>
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-2 text-[#5EC9C3] font-semibold text-sm whitespace-nowrap hover:text-white transition-colors duration-200"
-            >
-              Explore full catalogue
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
-            </Link>
-          </motion.div>
-
-          {/* Full-width interactive showcase */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7 }}
-            className="rounded-2xl overflow-hidden border border-white/5"
-          >
-            <ProjectShowcase />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── SERVICES ─────────────────────────────────────────── */}
-      <section className="py-20" style={{ background: '#0d0d0d' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="mb-14"
-          >
-            <p className="text-[#5EC9C3] text-xs font-semibold tracking-[0.2em] uppercase mb-3">
-              What We Do
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight">
-              Four Pillars of
-              <br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{ backgroundImage: 'linear-gradient(90deg, #F2B94B 0%, #f87171 100%)' }}
-              >
-                Excellence
-              </span>
-            </h2>
-            <p className="text-white/40 text-base mt-3 max-w-lg">
-              Four integrated service areas that cover the full spectrum of organisational growth and execution.
+            <p className="text-base leading-relaxed text-muted md:col-span-5">
+              Five integrated service areas that cover the full spectrum of organisational growth
+              and execution.
             </p>
           </motion.div>
 
           <motion.div
-            variants={staggerContainer}
+            variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            viewport={{ once: true, margin: '-60px' }}
+            className="mt-10 grid grid-cols-1 gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-6"
           >
-            {SERVICE_PREVIEW.map(({ Icon, title, desc, color }) => (
-              <motion.div key={title} variants={fadeInUp}>
-                <div className="group relative rounded-2xl border border-white/5 bg-[#111111] p-6 h-full hover:border-white/10 transition-all duration-300 overflow-hidden">
-                  {/* Hover glow */}
-                  <div
-                    className="absolute inset-x-0 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: `linear-gradient(90deg, transparent, ${color}80, transparent)` }}
-                  />
-
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                    style={{ background: `${color}18` }}
-                  >
-                    <Icon size={22} style={{ color }} />
+            {services.map((service, index) => {
+              const Icon = ICONS[service.icon] ?? FolderKanban;
+              return (
+                <motion.div
+                  key={service.id}
+                  variants={fadeUp}
+                  className={[
+                    'group bg-white p-6',
+                    index >= 3 ? 'lg:col-span-3' : 'lg:col-span-2',
+                  ].join(' ')}
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="font-serif text-sm text-subtle">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <Icon size={18} strokeWidth={1.5} className="text-burgundy" />
                   </div>
-                  <h3 className="font-bold text-white text-base leading-tight mb-2">{title}</h3>
-                  <p className="text-white/45 text-sm leading-relaxed">{desc}</p>
+                  <h3 className="mt-6 font-serif text-lg leading-snug text-ink">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted">{service.summary}</p>
                   <Link
-                    href="/about"
-                    className="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-all duration-200 group/link"
-                    style={{ color }}
+                    href="/about#services"
+                    className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-burgundy transition-colors hover:text-burgundy-dark"
                   >
                     Learn more
-                    <ArrowRight size={13} className="group-hover/link:translate-x-1 transition-transform duration-200" />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── TEAM STRIP ───────────────────────────────────────────────── */}
-      <section className="py-20" style={{ background: '#080808' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="mb-14 text-center"
-          >
-            <p className="text-[#5EC9C3] text-xs font-semibold tracking-[0.2em] uppercase mb-3">
-              The Team
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight">
-              Leadership
-            </h2>
-            <p className="text-white/40 text-base mt-3">
-              The founders driving BAJs&apos; vision forward.
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-5"
-          >
-            {teamMembers.map((member, i) => {
-              const color = TEAM_COLORS[i % TEAM_COLORS.length];
-              return (
-                <motion.div key={member.id} variants={fadeInUp}>
-                  <Link href={`/team/${member.slug}`} className="block group">
-                    <div className="relative rounded-2xl border border-white/5 bg-[#111111] p-8 text-center h-full hover:border-white/10 transition-all duration-300 overflow-hidden">
-                      {/* Top glow on hover */}
-                      <div
-                        className="absolute inset-x-0 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{ background: `linear-gradient(90deg, transparent, ${color}80, transparent)` }}
-                      />
-
-                      <div
-                        className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-5 text-2xl font-black transition-transform duration-300 group-hover:scale-105"
-                        style={{ background: `${color}18`, color }}
-                      >
-                        {getInitials(member.name)}
-                      </div>
-                      <p className="font-bold text-white text-lg leading-tight">{member.name}</p>
-                      <p className="text-white/40 text-sm mt-1.5">{member.title}</p>
-                      <span
-                        className="inline-flex items-center gap-1 text-sm font-semibold mt-5 transition-all duration-200 group-hover:gap-2"
-                        style={{ color }}
-                      >
-                        View Profile <ArrowRight size={13} />
-                      </span>
-                    </div>
+                    <ArrowRight size={12} />
                   </Link>
                 </motion.div>
               );
@@ -368,53 +229,139 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────── */}
-      <section className="py-28 relative overflow-hidden" style={{ background: '#080808' }}>
-        {/* Background decoration */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(94,201,195,1) 1px, transparent 1px), linear-gradient(90deg, rgba(94,201,195,1) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-3xl pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #5EC9C3 0%, #a78bfa 50%, transparent 70%)' }}
-        />
-
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      {/* Selected work */}
+      <section className="border-b border-rule bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
           <motion.div
-            variants={fadeInUp}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={{ once: true, margin: '-60px' }}
+            className="mb-9 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
           >
-            <p className="text-[#5EC9C3] text-xs font-semibold tracking-[0.2em] uppercase mb-5">
-              Work With Us
-            </p>
-            <h2 className="text-4xl sm:text-6xl font-black text-white mb-5 leading-tight">
-              Ready to Build
-              <br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{ backgroundImage: 'linear-gradient(90deg, #5EC9C3 0%, #a78bfa 50%, #F2B94B 100%)' }}
-              >
-                Something Great?
-              </span>
-            </h2>
-            <p className="text-white/45 text-lg mb-10 max-w-lg mx-auto">
-              Let&apos;s discuss your next project. We&apos;re based in Abuja and work across West Africa.
-            </p>
+            <div>
+              <p className="eyebrow">Our portfolio</p>
+              <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+                Selected work
+              </h2>
+            </div>
             <Link
-              href="/contact"
-              className="group inline-flex items-center gap-2.5 rounded-full font-bold px-10 py-5 text-base text-[#06100f] transition-all duration-300 shadow-xl hover:shadow-[#5EC9C3]/30 hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, #5EC9C3 0%, #a78bfa 100%)' }}
+              href="/projects"
+              className="group inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors hover:text-burgundy"
             >
-              Get In Touch
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
+              Explore the full catalogue
+              <ArrowUpRight
+                size={14}
+                className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
             </Link>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5 }}
+            className="border border-rule"
+          >
+            <ProjectShowcase />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Leadership */}
+      <section id="leadership" className="border-b border-rule bg-paper-alt py-16 sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            className="mb-9"
+          >
+            <p className="eyebrow">The team</p>
+            <h2 className="mt-4 font-serif text-3xl leading-[1.15] text-ink sm:text-4xl">
+              Leadership
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+              The founders responsible for the firm&apos;s delivery, operations and financial
+              discipline.
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            className="grid grid-cols-1 gap-5 sm:grid-cols-3"
+          >
+            {teamMembers.map((member) => (
+              <motion.div key={member.id} variants={fadeUp}>
+                <Link
+                  href={`/team/${member.slug}`}
+                  className="group flex h-full flex-col border border-rule bg-paper p-6 transition-colors hover:border-ink/30"
+                >
+                  <div className="flex h-14 w-14 items-center justify-center border border-rule bg-white font-serif text-lg text-burgundy">
+                    {initials(member.name)}
+                  </div>
+                  <h3 className="mt-5 font-serif text-xl leading-snug text-ink">
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-wider text-burgundy">
+                    {member.homeTitle ?? member.title}
+                  </p>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                    {member.shortBio}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-ink transition-colors group-hover:text-burgundy">
+                    View profile
+                    <ArrowRight
+                      size={12}
+                      className="transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact band */}
+      <section className="bg-ink py-16 text-paper sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-end"
+          >
+            <div className="lg:col-span-8">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+                Work with us
+              </p>
+              <h2 className="mt-4 max-w-2xl font-serif text-3xl leading-[1.15] sm:text-4xl">
+                Let&apos;s discuss your next project.
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-paper/60">
+                We&apos;re based in Abuja and work across West Africa, the wider African continent
+                and globally.
+              </p>
+            </div>
+            <div className="lg:col-span-4 lg:text-right">
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-2 border border-paper/30 px-7 py-4 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors hover:border-gold hover:text-gold-light"
+              >
+                Get in touch
+                <ArrowRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

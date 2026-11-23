@@ -2,21 +2,16 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const teamMembers = [
-  { name: 'Chief Technology Officer', slug: 'benjamin-japheth' },
-  { name: 'Chief Operating Officer', slug: 'benjamin-prince' },
-  { name: 'Chief Financial Officer', slug: 'divine-favour' },
-];
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { teamMembers } from '@/data/team';
+import { Wordmark } from '@/components/layout/Wordmark';
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Projects', href: '/projects' },
   { label: 'About', href: '/about' },
+  { label: 'Projects', href: '/projects' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -25,12 +20,11 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [teamOpen, setTeamOpen] = useState(false);
   const [mobileTeamOpen, setMobileTeamOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setTeamOpen(false);
       }
     }
@@ -39,216 +33,176 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 80);
-    handler();
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
-  }, []);
-
-  // On home page at top: transparent bg + white text; everywhere else: white bg + dark text
-  const isHome = pathname === '/';
-  const atTopHome = isHome && !scrolled;
-
-  const navBgClass = atTopHome
-    ? 'bg-white/80 backdrop-blur-md border-b border-gray-100'
-    : scrolled
-    ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-200'
-    : 'bg-white/90 backdrop-blur-md border-b border-gray-200';
+    setMobileOpen(false);
+    setTeamOpen(false);
+    setMobileTeamOpen(false);
+  }, [pathname]);
 
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
-  const getLinkClass = (href: string) => {
-    const base = 'text-sm font-medium transition-colors duration-200';
-    if (isActive(href)) {
-      return `${base} text-burgundy`;
-    }
-    return `${base} ${atTopHome ? 'text-dark/70 hover:text-burgundy' : 'text-dark/60 hover:text-burgundy'}`;
-  };
-
-  const teamBtnClass = [
-    'flex items-center gap-1 text-sm font-medium transition-colors duration-200',
-    pathname.startsWith('/team')
-      ? 'text-burgundy'
-      : atTopHome ? 'text-dark/70 hover:text-burgundy' : 'text-dark/60 hover:text-burgundy',
-  ].join(' ');
-
-  const underlineColor = 'bg-burgundy';
+  const linkClass = (href: string) =>
+    [
+      'relative py-2 text-[13px] font-semibold tracking-wide transition-colors duration-200',
+      isActive(href) ? 'text-burgundy' : 'text-ink/70 hover:text-burgundy',
+    ].join(' ');
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${navBgClass}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
-            <Image src="/icon.svg" alt="BAJs PM & C" width={40} height={40} priority />
-            <span className="ml-2 font-black text-dark tracking-tighter">BAJs<span className="text-burgundy">PM&C</span></span>
+    <header className="sticky top-0 z-50 border-b border-rule bg-paper">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-6">
+        <Wordmark />
+
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+          <Link href="/" className={linkClass('/')}>
+            Home
+            {isActive('/') && <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />}
+          </Link>
+          <Link href="/about" className={linkClass('/about')}>
+            About
+            {isActive('/about') && <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />}
+          </Link>
+          <Link href="/projects" className={linkClass('/projects')}>
+            Projects
+            {isActive('/projects') && (
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />
+            )}
           </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.slice(0, 2).map((link) => (
-              <Link key={link.href} href={link.href} className={`relative group ${getLinkClass(link.href)}`}>
-                {link.label}
-                <span
-                  className={[
-                    'absolute left-0 -bottom-0.5 h-[2px] rounded-full transition-all duration-200',
-                    underlineColor,
-                    isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full',
-                  ].join(' ')}
-                />
-              </Link>
-            ))}
-
-            <Link href="/about" className={`relative group ${getLinkClass('/about')}`}>
-              About
-              <span
-                className={[
-                  'absolute left-0 -bottom-0.5 h-[2px] rounded-full transition-all duration-200',
-                  underlineColor,
-                  isActive('/about') ? 'w-full' : 'w-0 group-hover:w-full',
-                ].join(' ')}
-              />
-            </Link>
-
-            {/* Team dropdown */}
-            <div
-              className="relative"
-              ref={dropdownRef}
-              onMouseEnter={() => setTeamOpen(true)}
-              onMouseLeave={() => setTeamOpen(false)}
+          <div
+            className="relative"
+            ref={dropdownRef}
+            onMouseEnter={() => setTeamOpen(true)}
+            onMouseLeave={() => setTeamOpen(false)}
+          >
+            <button
+              type="button"
+              className={[
+                'flex items-center gap-1 py-2 text-[13px] font-semibold tracking-wide transition-colors duration-200',
+                pathname.startsWith('/team')
+                  ? 'text-burgundy'
+                  : 'text-ink/70 hover:text-burgundy',
+              ].join(' ')}
+              aria-expanded={teamOpen}
+              aria-haspopup="true"
             >
-              <button className={teamBtnClass} aria-expanded={teamOpen}>
-                Team
-                <ChevronDown
-                  size={15}
-                  className={`transition-transform duration-200 ${teamOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              <AnimatePresence>
-                {teamOpen && (
-                  <motion.div
-                    key="team-dropdown"
-                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -6, scale: 0.97 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-[#141414] rounded-lg shadow-2xl border border-white/10 py-1 z-50"
-                  >
-                    {teamMembers.map((member) => (
-                      <Link
-                        key={member.slug}
-                        href={`/team/${member.slug}`}
-                        className="block px-4 py-2.5 text-sm text-white/60 hover:bg-white/5 hover:text-[#5EC9C3] transition-colors"
-                        onClick={() => setTeamOpen(false)}
-                      >
-                        {member.name}
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <Link href="/contact" className={`relative group ${getLinkClass('/contact')}`}>
-              Contact
-              <span
-                className={[
-                  'absolute left-0 -bottom-0.5 h-[2px] rounded-full transition-all duration-200',
-                  underlineColor,
-                  isActive('/contact') ? 'w-full' : 'w-0 group-hover:w-full',
-                ].join(' ')}
+              Team
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-200 ${teamOpen ? 'rotate-180' : ''}`}
               />
-            </Link>
+            </button>
+
+            <AnimatePresence>
+              {teamOpen && (
+                <motion.div
+                  key="team-dropdown"
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 border border-rule bg-paper py-2 shadow-md"
+                >
+                  {teamMembers.map((member) => (
+                    <Link
+                      key={member.slug}
+                      href={`/team/${member.slug}`}
+                      className="block px-5 py-3 transition-colors hover:bg-paper-alt"
+                      onClick={() => setTeamOpen(false)}
+                    >
+                      <span className="block text-[13px] font-semibold text-ink">
+                        {member.name}
+                      </span>
+                      <span className="mt-0.5 block text-[11px] uppercase tracking-wider text-muted">
+                        {member.title}
+                      </span>
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden p-2 rounded-md transition-colors text-dark/60 hover:text-burgundy"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          <Link href="/contact" className={linkClass('/contact')}>
+            Contact
+            {isActive('/contact') && (
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-burgundy" />
+            )}
+          </Link>
+
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-2 border border-ink bg-ink px-4 py-2.5 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors duration-200 hover:bg-burgundy hover:border-burgundy"
           >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+            Discuss a project
+            <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </nav>
+
+        <button
+          type="button"
+          className="p-2 text-ink md:hidden"
+          onClick={() => setMobileOpen((value) => !value)}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
 
-      {/* Mobile menu — animated slide-down */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <motion.nav
             key="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden border-t border-gray-100 bg-white shadow-lg overflow-hidden"
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden border-t border-rule bg-paper md:hidden"
+            aria-label="Mobile"
           >
-            <div className="px-4 py-3 flex flex-col gap-1">
-              {navLinks.slice(0, 2).map((link) => (
+            <div className="mx-auto flex max-w-6xl flex-col px-6 py-4">
+              {navLinks.slice(0, 3).map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={[
-                    'block py-2.5 px-4 rounded-lg text-sm font-medium transition-colors',
-                    isActive(link.href)
-                      ? 'text-burgundy bg-gray-50'
-                      : 'text-dark/60 hover:text-burgundy hover:bg-gray-50',
-                  ].join(' ')}
+                  className="border-b border-rule/60 py-3 text-sm font-semibold text-ink"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
 
-              <Link
-                href="/about"
-                className="block py-2.5 px-4 rounded-lg text-sm font-medium transition-colors text-dark/60 hover:text-burgundy hover:bg-gray-50"
-                onClick={() => setMobileOpen(false)}
-              >
-                About
-              </Link>
-
-              {/* Mobile team accordion */}
-              <div>
+              <div className="border-b border-rule/60">
                 <button
-                  className={[
-                    'w-full flex items-center justify-between py-2.5 px-4 rounded-lg text-sm font-medium transition-colors',
-                    pathname.startsWith('/team')
-                      ? 'text-burgundy bg-gray-50'
-                      : 'text-dark/60 hover:text-burgundy hover:bg-gray-50',
-                  ].join(' ')}
-                  onClick={() => setMobileTeamOpen((v) => !v)}
+                  type="button"
+                  className="flex w-full items-center justify-between py-3 text-sm font-semibold text-ink"
+                  onClick={() => setMobileTeamOpen((value) => !value)}
+                  aria-expanded={mobileTeamOpen}
                 >
                   Team
                   <ChevronDown
                     size={15}
-                    className={`transition-transform duration-200 ${mobileTeamOpen ? 'rotate-180' : ''}`}
+                    className={`transition-transform ${mobileTeamOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
-
                 <AnimatePresence>
                   {mobileTeamOpen && (
                     <motion.div
-                      key="mobile-team"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden mt-1 ml-4 border-l-2 border-burgundy/30 pl-3"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden pb-2 pl-4"
                     >
                       {teamMembers.map((member) => (
                         <Link
                           key={member.slug}
                           href={`/team/${member.slug}`}
-                          className="block py-1.5 text-sm text-dark/50 hover:text-burgundy transition-colors"
-                            onClick={() => { setMobileOpen(false); setMobileTeamOpen(false); }}
-                          >
-                            {member.name}
-                          </Link>
-                        ))}
-                      </div>
+                          className="block py-2 text-sm text-muted"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {member.name}
+                        </Link>
+                      ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -256,15 +210,24 @@ export default function Navbar() {
 
               <Link
                 href="/contact"
-                className="block py-2.5 px-4 rounded-lg text-sm font-medium transition-colors text-dark/60 hover:text-burgundy hover:bg-gray-50"
+                className="border-b border-rule/60 py-3 text-sm font-semibold text-ink"
                 onClick={() => setMobileOpen(false)}
               >
                 Contact
               </Link>
+
+              <Link
+                href="/contact"
+                className="mt-4 inline-flex items-center justify-center gap-2 bg-ink px-4 py-3 text-[12px] font-semibold uppercase tracking-wider text-paper"
+                onClick={() => setMobileOpen(false)}
+              >
+                Discuss a project
+                <ArrowRight size={14} />
+              </Link>
             </div>
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   );
 }

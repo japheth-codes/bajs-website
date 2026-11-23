@@ -12,13 +12,18 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const member = teamMembers.find((m) => m.slug === params.slug);
+  const member = teamMembers.find((entry) => entry.slug === params.slug);
   if (!member) return {};
+
+  const title = member.actingTitle
+    ? `${member.name} | Acting CEO & CTO`
+    : `${member.name} | ${member.title}`;
+
   return {
-    title: `${member.name} — ${member.title} | BAJs PM & C`,
+    title: { absolute: title },
     description: member.shortBio,
     openGraph: {
-      title: `${member.name} — ${member.title}`,
+      title,
       description: member.shortBio,
       type: 'profile',
     },
@@ -26,7 +31,7 @@ export async function generateMetadata({
 }
 
 export default function TeamMemberPage({ params }: { params: { slug: string } }) {
-  const member = teamMembers.find((m) => m.slug === params.slug);
+  const member = teamMembers.find((entry) => entry.slug === params.slug);
   if (!member) notFound();
   return <TeamMemberContent member={member} />;
 }

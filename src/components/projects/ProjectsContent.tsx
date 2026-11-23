@@ -1,27 +1,29 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import ProjectCardFull from '@/components/projects/ProjectCardFull';
 import { projects } from '@/data/projects';
 import { Project } from '@/data/types';
 
 type Filter = 'all' | 'Deployed' | 'development' | 'research';
 
-const FILTERS: { id: Filter; label: string; count?: number }[] = [
-  { id: 'all', label: 'All Projects' },
-  { id: 'development', label: 'In Development' },
-  { id: 'research', label: 'Research & Concept' },
+const FILTERS: { id: Filter; label: string }[] = [
+  { id: 'all', label: 'All projects' },
   { id: 'Deployed', label: 'Live' },
+  { id: 'development', label: 'In development' },
+  { id: 'research', label: 'Research and concept' },
 ];
 
 function filterProjects(filter: Filter, list: Project[]): Project[] {
-  if (filter === 'Deployed') return list.filter((p) => p.status === 'Deployed');
-  if (filter === 'development') return list.filter((p) => p.status === 'MVP Development');
+  if (filter === 'Deployed') return list.filter((project) => project.status === 'Deployed');
+  if (filter === 'development')
+    return list.filter((project) => project.status === 'MVP Development');
   if (filter === 'research')
     return list.filter(
-      (p) =>
-        p.status === 'Conceptualization & Design' || p.status === 'Research & Conceptualization'
+      (project) =>
+        project.status === 'Conceptualization & Design' ||
+        project.status === 'Research & Conceptualization'
     );
   return list;
 }
@@ -30,143 +32,100 @@ export default function ProjectsContent() {
   const [active, setActive] = useState<Filter>('all');
   const visible = filterProjects(active, projects);
 
+  const stats = [
+    { value: projects.length, label: 'Total projects' },
+    {
+      value: projects.filter((project) => project.status === 'MVP Development').length,
+      label: 'In development',
+    },
+    {
+      value: projects.filter(
+        (project) =>
+          project.status === 'Conceptualization & Design' ||
+          project.status === 'Research & Conceptualization'
+      ).length,
+      label: 'In research or design',
+    },
+  ];
+
   return (
-    <div style={{ background: '#080808' }} className="min-h-screen text-white">
-      {/* ── Page Hero ──────────────────────────────────────── */}
-      <div className="relative overflow-hidden" style={{ background: '#080808' }}>
-        {/* Decorative grid */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(94,201,195,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(94,201,195,0.8) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-
-        {/* Glowing orbs */}
-        <div
-          className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-10 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #5EC9C3 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full opacity-8 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #7A2E2E 0%, transparent 70%)' }}
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-16">
+    <div className="min-h-screen bg-paper">
+      {/* Header */}
+      <section className="border-b border-ink-deep bg-ink py-16 text-paper sm:py-20">
+        <div className="mx-auto max-w-6xl px-6">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.5 }}
           >
-            <p className="text-[#5EC9C3] text-xs font-semibold tracking-[0.25em] uppercase mb-4">
-              BAJs PM &amp; C — Portfolio
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-gold-light">
+              BAJs PM&amp;C · Portfolio
             </p>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-[0.95] tracking-tight text-white mb-6">
-              Project
-              <br />
-              <span
-                className="text-transparent bg-clip-text"
-                style={{ backgroundImage: 'linear-gradient(90deg, #5EC9C3 0%, #a78bfa 100%)' }}
-              >
-                Catalogue
-              </span>
+            <h1 className="mt-5 max-w-2xl font-serif text-4xl leading-[1.1] sm:text-5xl">
+              Project catalogue
             </h1>
-            <p className="text-white/50 text-lg max-w-xl leading-relaxed">
-              Innovative platforms in active development across fintech, healthtech, edtech, and operational automation — built for Africa&apos;s emerging markets.
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-paper/60 sm:text-lg">
+              Platforms in active development and research across fintech, healthtech, edtech and
+              operational automation, built for African markets.
             </p>
           </motion.div>
 
-          {/* Stats row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex flex-wrap gap-8 mt-10"
-          >
-            {[
-              { value: projects.length, label: 'Total Projects' },
-              { value: projects.filter((p) => p.status === 'MVP Development').length, label: 'In Development' },
-              { value: projects.filter((p) => p.status.includes('Conceptualization') || p.status.includes('Research')).length, label: 'In Research' },
-            ].map(({ value, label }) => (
-              <div key={label} className="flex flex-col">
-                <span
-                  className="text-4xl font-black text-transparent bg-clip-text"
-                  style={{ backgroundImage: 'linear-gradient(135deg, #5EC9C3 0%, #a78bfa 100%)' }}
-                >
-                  {value}
-                </span>
-                <span className="text-white/35 text-xs font-medium mt-1">{label}</span>
+          <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-paper/15 pt-6">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <dd className="font-serif text-2xl text-paper sm:text-3xl">{stat.value}</dd>
+                <dt className="mt-1.5 text-[10px] font-semibold uppercase tracking-wider text-paper/50 sm:text-[11px]">
+                  {stat.label}
+                </dt>
               </div>
             ))}
-          </motion.div>
+          </dl>
         </div>
-      </div>
+      </section>
 
-      {/* ── Filter + Grid ──────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 pb-24">
-        {/* Filter bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex items-center gap-2 mb-12 flex-wrap"
-        >
-          {FILTERS.map((f) => {
-            const count = filterProjects(f.id, projects).length;
-            const isActive = active === f.id;
+      {/* Filters and grid */}
+      <section className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+        <div className="flex flex-wrap items-center gap-x-7 gap-y-3 border-b border-rule">
+          {FILTERS.map((filter) => {
+            const count = filterProjects(filter.id, projects).length;
+            const isActive = active === filter.id;
             return (
               <button
-                key={f.id}
-                onClick={() => setActive(f.id)}
+                key={filter.id}
+                type="button"
+                onClick={() => setActive(filter.id)}
                 className={[
-                  'relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300',
+                  'relative -mb-px flex items-center gap-2 pb-3 text-[11px] font-semibold uppercase tracking-wider transition-colors',
                   isActive
-                    ? 'text-[#080808]'
-                    : 'text-white/50 hover:text-white/80 border border-white/10 hover:border-white/20',
+                    ? 'border-b-2 border-burgundy text-ink'
+                    : 'border-b-2 border-transparent text-muted hover:text-ink',
                 ].join(' ')}
-                style={isActive ? { background: 'linear-gradient(135deg, #5EC9C3 0%, #a78bfa 100%)' } : {}}
+                aria-pressed={isActive}
               >
-                {f.label}
-                <span
-                  className={[
-                    'ml-2 text-xs rounded-full px-1.5 py-0.5 font-medium',
-                    isActive ? 'bg-black/15' : 'bg-white/8',
-                  ].join(' ')}
-                >
-                  {count}
-                </span>
+                {filter.label}
+                <span className="text-[10px] font-normal text-subtle">{count}</span>
               </button>
             );
           })}
-        </motion.div>
+        </div>
 
-        {/* Project grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
+            transition={{ duration: 0.2 }}
+            className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
           >
-            {visible.map((project, i) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07, duration: 0.4 }}
-              >
-                <ProjectCardFull project={project} index={i} />
-              </motion.div>
+            {visible.map((project, index) => (
+              <ProjectCardFull key={project.id} project={project} index={index} />
             ))}
           </motion.div>
         </AnimatePresence>
 
         {visible.length === 0 && (
-          <p className="text-center text-white/30 py-20">No projects match this filter.</p>
+          <p className="py-16 text-center text-sm text-muted">No projects match this filter.</p>
         )}
       </section>
     </div>

@@ -1,216 +1,228 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, ExternalLink, Clock, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
-import emailjs from '@emailjs/browser';
-import { company } from '@/data/company';
+import {
+  AlertCircle,
+  CheckCircle2,
+  Clock,
+  ExternalLink,
+  Loader2,
+  Mail,
+  MapPin,
+  Phone,
+} from 'lucide-react';
+import { company, telHref } from '@/data/company';
 import PageHero from '@/components/ui/PageHero';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const SUBJECTS = ['General Inquiry', 'Project Discussion', 'Partnership', 'Other'];
 
+const emptyForm = {
+  name: '',
+  email: '',
+  subject: 'General Inquiry',
+  message: '',
+};
+
 export default function ContactContent() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: 'General Inquiry',
-    message: '',
-  });
+  const [formData, setFormData] = useState(emptyForm);
+  const [honeypot, setHoneypot] = useState('');
   const [status, setStatus] = useState<Status>('idle');
 
   function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((previous) => ({ ...previous, [event.target.name]: event.target.value }));
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     if (!formData.name || !formData.email || !formData.subject || !formData.message) return;
 
     setStatus('loading');
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        },
-        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
-      );
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, company: honeypot }),
+      });
+
+      if (!response.ok) throw new Error('Send failed');
+
       setStatus('success');
-      setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
+      setFormData(emptyForm);
     } catch {
       setStatus('error');
     }
   }
 
   const inputClass =
-    'w-full border border-gray-200 rounded-lg px-4 py-3 text-dark text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 bg-white placeholder:text-gray-400';
-
-  const labelClass = 'block text-sm font-semibold text-dark mb-1.5';
+    'w-full rounded-sm border border-rule bg-white px-4 py-3 text-sm text-ink placeholder:text-subtle focus:border-burgundy focus:outline-none focus:ring-0 transition-colors';
+  const labelClass = 'mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-muted';
 
   return (
     <>
-      {/* ── Page Header ────────────────────────────────────────────── */}
       <PageHero
-        title="Contact Us"
-        subtitle="Reach out to discuss a project, partnership, or enquiry. We typically respond within 24 hours."
-        breadcrumb="BAJs PM & C"
-        variant="aqua"
+        title="Contact us"
+        subtitle="Reach out to discuss a project, partnership or enquiry. We typically respond within 24 hours."
+        breadcrumb="BAJs PM&C"
+        variant="ink"
       />
 
-      {/* ── Two-column layout ──────────────────────────────────────── */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-            {/* ── LEFT: Contact Info ──────────────────────────────── */}
+      <section className="border-b border-rule bg-paper py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+            {/* Contact details */}
             <motion.div
-              variants={staggerContainer}
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
-              className="flex flex-col gap-8"
+              className="lg:col-span-5"
             >
-              <motion.div variants={fadeInUp}>
-                <h2 className="text-2xl font-bold text-dark mb-1">{company.name}</h2>
-                <p className="text-dark-muted text-sm">RC: 7377476</p>
-              </motion.div>
+              <div className="border-t-2 border-burgundy pt-6">
+                <h2 className="font-serif text-2xl text-ink">{company.name}</h2>
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wider text-muted">
+                  RC {company.rc}
+                </p>
+              </div>
 
-              {/* Addresses */}
-              <motion.div variants={fadeInUp} className="flex flex-col gap-4">
-                <h3 className="text-sm font-semibold text-dark uppercase tracking-widest">
-                  Our Offices
+              <div className="mt-8">
+                <h3 className="text-[11px] font-semibold uppercase tracking-widest text-subtle">
+                  Our offices
                 </h3>
-                {company.addresses.map((addr) => (
-                  <div key={addr} className="flex items-start gap-3">
-                    <MapPin size={18} className="text-primary shrink-0 mt-0.5" />
-                    <span className="text-dark-muted text-sm leading-relaxed">{addr}</span>
-                  </div>
-                ))}
-              </motion.div>
+                <div className="mt-4 flex flex-col gap-3">
+                  {company.addresses.map((address) => (
+                    <div key={address} className="flex items-start gap-3">
+                      <MapPin size={15} className="mt-1 shrink-0 text-burgundy" strokeWidth={1.5} />
+                      <span className="text-sm leading-relaxed text-muted">{address}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-4 border-l border-rule pl-3 text-[13px] italic leading-relaxed text-muted">
+                  BAJs operates on a remote-first model, a deliberate choice that reflects the
+                  digital, technology-led nature of the projects in our pipeline.
+                </p>
+              </div>
 
-              {/* Phone */}
-              <motion.div variants={fadeInUp} className="flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-dark uppercase tracking-widest">
+              <div className="mt-8">
+                <h3 className="text-[11px] font-semibold uppercase tracking-widest text-subtle">
                   Phone
                 </h3>
-                {company.phones.map((phone) => (
-                  <a
-                    key={phone}
-                    href={`tel:${phone.replace(/\s/g, '')}`}
-                    className="flex items-center gap-3 text-dark-muted text-sm hover:text-primary transition-colors duration-200"
-                  >
-                    <Phone size={16} className="text-primary shrink-0" />
-                    {phone}
-                  </a>
-                ))}
-              </motion.div>
+                <div className="mt-4 flex flex-col gap-3">
+                  {company.phones.map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${telHref(phone)}`}
+                      className="flex items-center gap-3 text-sm text-muted transition-colors hover:text-burgundy"
+                    >
+                      <Phone size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
+                      {phone}
+                    </a>
+                  ))}
+                </div>
+              </div>
 
-              {/* Email */}
-              <motion.div variants={fadeInUp} className="flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-dark uppercase tracking-widest">
+              <div className="mt-8">
+                <h3 className="text-[11px] font-semibold uppercase tracking-widest text-subtle">
                   Email
                 </h3>
                 <a
-                  href={`mailto:bajsprojmangandconsultancy@gmail.com`}
-                  className="flex items-center gap-3 text-dark-muted text-sm hover:text-primary transition-colors duration-200 break-all"
+                  href={`mailto:${company.email}`}
+                  className="mt-4 flex items-center gap-3 break-all text-sm text-muted transition-colors hover:text-burgundy"
                 >
-                  <Mail size={16} className="text-primary shrink-0" />
-                  bajsprojmangandconsultancy@gmail.com
+                  <Mail size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
+                  {company.email}
                 </a>
-              </motion.div>
+              </div>
 
-              {/* LinkedIn */}
-              <motion.div variants={fadeInUp} className="flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-dark uppercase tracking-widest">
+              <div className="mt-8">
+                <h3 className="text-[11px] font-semibold uppercase tracking-widest text-subtle">
                   LinkedIn
                 </h3>
                 <a
                   href={company.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-dark-muted text-sm hover:text-primary transition-colors duration-200"
+                  className="mt-4 flex items-center gap-3 text-sm text-muted transition-colors hover:text-burgundy"
                 >
-                  <ExternalLink size={16} className="text-primary shrink-0" />
+                  <ExternalLink size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
                   BAJs PM &amp; Consultancy on LinkedIn
                 </a>
-              </motion.div>
+              </div>
 
-              {/* Working Hours */}
-              <motion.div variants={fadeInUp} className="flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-dark uppercase tracking-widest">
-                  Working Hours
+              <div className="mt-8">
+                <h3 className="text-[11px] font-semibold uppercase tracking-widest text-subtle">
+                  Working hours
                 </h3>
-                <div className="flex items-center gap-3 text-dark-muted text-sm">
-                  <Clock size={16} className="text-primary shrink-0" />
+                <div className="mt-4 flex items-center gap-3 text-sm text-muted">
+                  <Clock size={15} className="shrink-0 text-burgundy" strokeWidth={1.5} />
                   {company.workingHours}
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
 
-            {/* ── RIGHT: Contact Form ─────────────────────────────── */}
+            {/* Form */}
             <motion.div
-              variants={fadeInUp}
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-60px' }}
+              className="lg:col-span-7"
             >
-              <div className="bg-white rounded-2xl shadow-xl p-8">
-                <h2 className="text-2xl font-bold text-dark mb-6">Send Us a Message</h2>
+              <div className="border border-rule bg-white">
+                <div className="border-b border-rule px-7 py-6">
+                  <h2 className="font-serif text-2xl text-ink">Send us a message</h2>
+                  <p className="mt-2 text-sm text-muted">
+                    Fields marked with an asterisk are required.
+                  </p>
+                </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-                  <div>
-                    <label htmlFor="name" className={labelClass}>
-                      Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your full name"
-                      className={inputClass}
-                    />
-                  </div>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-7">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="name" className={labelClass}>
+                        Full name <span className="text-burgundy">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your full name"
+                        className={inputClass}
+                      />
+                    </div>
 
-                  <div>
-                    <label htmlFor="email" className={labelClass}>
-                      Email <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="your@email.com"
-                      className={inputClass}
-                    />
+                    <div>
+                      <label htmlFor="email" className={labelClass}>
+                        Email <span className="text-burgundy">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your@email.com"
+                        className={inputClass}
+                      />
+                    </div>
                   </div>
 
                   <div>
                     <label htmlFor="subject" className={labelClass}>
-                      Subject <span className="text-red-500">*</span>
+                      Subject <span className="text-burgundy">*</span>
                     </label>
                     <select
                       id="subject"
@@ -220,9 +232,9 @@ export default function ContactContent() {
                       onChange={handleChange}
                       className={inputClass}
                     >
-                      {SUBJECTS.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
+                      {SUBJECTS.map((subject) => (
+                        <option key={subject} value={subject}>
+                          {subject}
                         </option>
                       ))}
                     </select>
@@ -230,41 +242,56 @@ export default function ContactContent() {
 
                   <div>
                     <label htmlFor="message" className={labelClass}>
-                      Message <span className="text-red-500">*</span>
+                      Message <span className="text-burgundy">*</span>
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       required
-                      rows={5}
+                      rows={6}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell us about your project or enquiry…"
+                      placeholder="Tell us about your project or enquiry."
                       className={`${inputClass} resize-none`}
                     />
                   </div>
 
-                  {/* Status messages */}
+                  {/* Honeypot */}
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="company">Company</label>
+                    <input
+                      id="company"
+                      name="company"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(event) => setHoneypot(event.target.value)}
+                    />
+                  </div>
+
                   {status === 'success' && (
-                    <div className="flex items-start gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg px-4 py-3 text-sm">
-                      <CheckCircle2 size={18} className="shrink-0 mt-0.5" />
-                      <span>
-                        Message sent! We&apos;ll get back to you within 24 hours.
-                      </span>
+                    <div
+                      role="status"
+                      className="flex items-start gap-3 border border-[#1D6B45]/30 bg-[#1D6B45]/5 px-4 py-3 text-sm text-[#1D6B45]"
+                    >
+                      <CheckCircle2 size={17} className="mt-0.5 shrink-0" />
+                      <span>Message sent. We will get back to you within 24 hours.</span>
                     </div>
                   )}
 
                   {status === 'error' && (
-                    <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 text-sm">
-                      <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                    <div
+                      role="alert"
+                      className="flex items-start gap-3 border border-burgundy/30 bg-burgundy/5 px-4 py-3 text-sm text-burgundy"
+                    >
+                      <AlertCircle size={17} className="mt-0.5 shrink-0" />
                       <span>
                         Something went wrong. Please email us directly at{' '}
-                        <a
-                          href="mailto:bajsprojmangandconsultancy@gmail.com"
-                          className="underline font-medium"
-                        >
-                          bajsprojmangandconsultancy@gmail.com
+                        <a href={`mailto:${company.email}`} className="font-medium underline">
+                          {company.email}
                         </a>
+                        .
                       </span>
                     </div>
                   )}
@@ -272,15 +299,15 @@ export default function ContactContent() {
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold rounded-lg px-6 py-3.5 text-base hover:bg-primary-dark transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed mt-1"
+                    className="mt-1 inline-flex items-center justify-center gap-2 bg-burgundy px-6 py-3.5 text-[12px] font-semibold uppercase tracking-wider text-paper transition-colors hover:bg-burgundy-dark disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {status === 'loading' ? (
                       <>
-                        <Loader2 size={18} className="animate-spin" />
-                        Sending…
+                        <Loader2 size={16} className="animate-spin" />
+                        Sending
                       </>
                     ) : (
-                      'Send Message'
+                      'Send message'
                     )}
                   </button>
                 </form>
